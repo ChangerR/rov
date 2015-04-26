@@ -41,7 +41,7 @@ var OpenROVCamera = function (options) {
   }
 
   var args= [ '-i' ,
-              '/usr/local/lib/input_uvc.so -r ' + options.resolution + ' -f ' + options.framerate,
+              '/usr/local/lib/input_uvc.so -y -r ' + options.resolution + ' -f ' + options.framerate,
               '-o',
               '/usr/local/lib/output_http.so -p ' + options.port
             ];
