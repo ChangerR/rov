@@ -35,6 +35,8 @@ Thumbs.db
 
 
 node_modules
+dashboard
+proxy
 src/capture
 temp
 .idea
