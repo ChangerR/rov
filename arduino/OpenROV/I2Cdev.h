@@ -59,7 +59,7 @@ THE SOFTWARE.
 #define I2CDEV_ARDUINO_WIRE         1 // Wire object from Arduino
 
 // -----------------------------------------------------------------------------
-// Arduino-style "Serial.print" debug constant (uncomment to enable)
+// Arduino-style "_SERIAL_PORT_.print" debug constant (uncomment to enable)
 // -----------------------------------------------------------------------------
 //#define I2CDEV_SERIAL_DEBUG
 

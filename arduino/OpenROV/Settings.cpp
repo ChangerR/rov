@@ -15,21 +15,21 @@ Wire.begin();
 
 void Settings::device_loop(Command command){
     if (command.cmp("reportSetting")) {
-      Serial.print(F("*settings:"));
-      Serial.print(F("smoothingIncriment|"));
-      Serial.print(String(Settings::smoothingIncriment) + ",");
-      Serial.print(F("deadZone_min|"));
-      Serial.print(String(Settings::deadZone_min) + ",");
-      Serial.print(F("deadZone_max|"));
-      Serial.print(String(Settings::deadZone_max) + ";");
-      Serial.print(F("water_type"));
-      Serial.println(String(Settings::water_type) + ";");
+      _SERIAL_PORT_.print(F("*settings:"));
+      _SERIAL_PORT_.print(F("smoothingIncriment|"));
+      _SERIAL_PORT_.print(String(Settings::smoothingIncriment) + ",");
+      _SERIAL_PORT_.print(F("deadZone_min|"));
+      _SERIAL_PORT_.print(String(Settings::deadZone_min) + ",");
+      _SERIAL_PORT_.print(F("deadZone_max|"));
+      _SERIAL_PORT_.print(String(Settings::deadZone_max) + ";");
+      _SERIAL_PORT_.print(F("water_type"));
+      _SERIAL_PORT_.println(String(Settings::water_type) + ";");
       
     }
     else if (command.cmp("rcap")){ //report capabilities
-      Serial.print(F("CAPA:"));
-      Serial.print(capability_bitarray);
-      Serial.print(';');
+      _SERIAL_PORT_.print(F("CAPA:"));
+      _SERIAL_PORT_.print(capability_bitarray);
+      _SERIAL_PORT_.print(';');
       scan_i2c();
     }
     else if (command.cmp("updateSetting")) {
@@ -45,7 +45,7 @@ void Settings::scan_i2c(){
   byte error, address;
   int nDevices;
 
-  Serial.println(F("log:Scanning...;"));
+  _SERIAL_PORT_.println(F("log:Scanning...;"));
 
   nDevices = 0;
   for(address = 1; address < 127; address++ ) 
@@ -58,27 +58,27 @@ void Settings::scan_i2c(){
 
     if (error == 0)
     {
-      Serial.print(F("log:I2C device found at address 0x"));
+      _SERIAL_PORT_.print(F("log:I2C device found at address 0x"));
       if (address<16) 
-        Serial.print("0");
-      Serial.print(address,HEX);
-      Serial.println("  !;");
+        _SERIAL_PORT_.print("0");
+      _SERIAL_PORT_.print(address,HEX);
+      _SERIAL_PORT_.println("  !;");
 
       nDevices++;
     }
     else if (error==4) 
     {
-      Serial.print(F("log:Unknow error at address 0x"));
+      _SERIAL_PORT_.print(F("log:Unknow error at address 0x"));
       if (address<16) 
-        Serial.print("0");
-      Serial.print(address,HEX);
-      Serial.println(";");
+        _SERIAL_PORT_.print("0");
+      _SERIAL_PORT_.print(address,HEX);
+      _SERIAL_PORT_.println(";");
     }    
   }
   if (nDevices == 0)
-    Serial.println(F("log:No I2C devices found\n;"));
+    _SERIAL_PORT_.println(F("log:No I2C devices found\n;"));
   else
-    Serial.println(F("log:done\n;"));
+    _SERIAL_PORT_.println(F("log:done\n;"));
 
   delay(5000);           // wait 5 seconds for next scan
     

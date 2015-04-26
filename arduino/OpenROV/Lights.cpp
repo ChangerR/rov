@@ -22,12 +22,12 @@ void Lights::device_loop(Command command){
       int value = command.args[1]; //0 - 255
       light.write(value);
       
-      Serial.print(F("LIGT:"));
-      Serial.print(value);
-      Serial.print(';');
-      Serial.print(F("LIGP:"));
-      Serial.print(command.args[1]/255.0);
-      Serial.println(';');       
+      _SERIAL_PORT_.print(F("LIGT:"));
+      _SERIAL_PORT_.print(value);
+      _SERIAL_PORT_.print(';');
+      _SERIAL_PORT_.print(F("LIGP:"));
+      _SERIAL_PORT_.print(command.args[1]/255.0);
+      _SERIAL_PORT_.println(';');       
     }  
 }
 #endif

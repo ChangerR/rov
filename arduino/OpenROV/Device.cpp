@@ -36,79 +36,79 @@ void DeviceManager::doDeviceSetups(){
 }
 
 void OutputNavData(){
-    Serial.print(F("hdgd:"));
-    Serial.print(navdata::HDGD);
-    Serial.print(';');
-    Serial.print(F("deap:"));
-    Serial.print(navdata::DEAP);
-    Serial.print(';');
-    Serial.print(F("pitc:"));
-    Serial.print(navdata::PITC);
-    Serial.print(';');
-    Serial.print(F("roll:"));
-    Serial.print(navdata::ROLL);
-    Serial.print(';');
-    Serial.print(F("yaw:"));
-    Serial.print(navdata::YAW);
-    Serial.print(';');    
-    Serial.print(F("fthr:"));
-    Serial.print(navdata::FTHR);
-    Serial.println(';');
+    _SERIAL_PORT_.print(F("hdgd:"));
+    _SERIAL_PORT_.print(navdata::HDGD);
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("deap:"));
+    _SERIAL_PORT_.print(navdata::DEAP);
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("pitc:"));
+    _SERIAL_PORT_.print(navdata::PITC);
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("roll:"));
+    _SERIAL_PORT_.print(navdata::ROLL);
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("yaw:"));
+    _SERIAL_PORT_.print(navdata::YAW);
+    _SERIAL_PORT_.print(';');    
+    _SERIAL_PORT_.print(F("fthr:"));
+    _SERIAL_PORT_.print(navdata::FTHR);
+    _SERIAL_PORT_.println(';');
 }
 
 void OutputSharedData(){
 
-    Serial.print(F("motorAttached:"));
-    Serial.print(thrusterdata::MATC);
-    Serial.println(';');
+    _SERIAL_PORT_.print(F("motorAttached:"));
+    _SERIAL_PORT_.print(thrusterdata::MATC);
+    _SERIAL_PORT_.println(';');
     
-    Serial.print(F("servo:"));
-    Serial.print(cameraMountdata::CMNT);
-    Serial.print(';');
-    Serial.print(F("starg:"));
-    Serial.print(cameraMountdata::CMTG);
-    Serial.println(';');
+    _SERIAL_PORT_.print(F("servo:"));
+    _SERIAL_PORT_.print(cameraMountdata::CMNT);
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("starg:"));
+    _SERIAL_PORT_.print(cameraMountdata::CMTG);
+    _SERIAL_PORT_.println(';');
     
-    Serial.print(F("fmem:"));
-    Serial.print(capedata::FMEM);
-    Serial.print(';');
-    Serial.print(F("vout:"));
-    Serial.print(capedata::VOUT);
-    Serial.print(';');    
-    Serial.print(F("iout:"));
-    Serial.print(capedata::IOUT);
-    Serial.print(';');
-    Serial.print(F("atmp:"));
-    Serial.print(capedata::ATMP);
-    Serial.print(';');
-    Serial.print(F("ver:"));
-    Serial.print(F("CUSTOM_BUILD"));
-    Serial.print(';');
-    Serial.print(F("cmpd:"));
-    Serial.print( F(__DATE__));
-    Serial.print( F(", "));
-    Serial.print( F(__TIME__));
-    Serial.print( F(", "));
-    Serial.println( F(__VERSION__));  
-    Serial.print(';');
-    Serial.print(F("time:"));
-    Serial.print(capedata::UTIM);
-    Serial.println(';'); 
+    _SERIAL_PORT_.print(F("fmem:"));
+    _SERIAL_PORT_.print(capedata::FMEM);
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("vout:"));
+    _SERIAL_PORT_.print(capedata::VOUT);
+    _SERIAL_PORT_.print(';');    
+    _SERIAL_PORT_.print(F("iout:"));
+    _SERIAL_PORT_.print(capedata::IOUT);
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("atmp:"));
+    _SERIAL_PORT_.print(capedata::ATMP);
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("ver:"));
+    _SERIAL_PORT_.print(F("CUSTOM_BUILD"));
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("cmpd:"));
+    _SERIAL_PORT_.print( F(__DATE__));
+    _SERIAL_PORT_.print( F(", "));
+    _SERIAL_PORT_.print( F(__TIME__));
+    _SERIAL_PORT_.print( F(", "));
+    _SERIAL_PORT_.println( F(__VERSION__));  
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("time:"));
+    _SERIAL_PORT_.print(capedata::UTIM);
+    _SERIAL_PORT_.println(';'); 
     
-    Serial.print(F("pres:"));
-    Serial.print(envdata::PRES);
-    Serial.print(';');
-    Serial.print(F("temp:"));
-    Serial.print(envdata::TEMP);
-    Serial.println(';'); 
+    _SERIAL_PORT_.print(F("pres:"));
+    _SERIAL_PORT_.print(envdata::PRES);
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("temp:"));
+    _SERIAL_PORT_.print(envdata::TEMP);
+    _SERIAL_PORT_.println(';'); 
  
-    Serial.print(F("dlms:")); //device loop time in ms
+    _SERIAL_PORT_.print(F("dlms:")); //device loop time in ms
     for(int i=0;i<DeviceManager::device_count;i++){
-      Serial.print(i);
-      Serial.print('|');
-      Serial.print(DeviceManager::device_loop_ms[i]);
+      _SERIAL_PORT_.print(i);
+      _SERIAL_PORT_.print('|');
+      _SERIAL_PORT_.print(DeviceManager::device_loop_ms[i]);
     }
-    Serial.println(';');   
+    _SERIAL_PORT_.println(';');   
     
 }
 

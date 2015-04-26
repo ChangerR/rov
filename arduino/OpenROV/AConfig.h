@@ -40,4 +40,14 @@
 #  error "You must select either standard cape or controllerboard25 in the AConfig.h file as they have predefined pin values required by other libraries."
 #endif
 
+#ifdef USE_SOFTSERIAL
+#include <SoftwareSerial.h>
+const int softpinRX = 36; 
+const int softpinTX = 37;
+extern SoftwareSerial apc;
+#define _SERIAL_PORT_ apc
+#else 
+#define _SERIAL_PORT_ Serial
+#endif
+
 #endif

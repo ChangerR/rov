@@ -136,7 +136,7 @@ void LSM303::writeMagReg(byte reg, byte value)
 byte LSM303::readMagReg(int reg)
 {
   byte value;
-  Serial.print("readMagReg");
+  _SERIAL_PORT_.print("readMagReg");
   // if dummy register address (magnetometer Y/Z), use device type to determine actual address
   if (reg < 0)
   {
@@ -215,8 +215,8 @@ void LSM303::readMag(void)
   Wire.beginTransmission(MAG_ADDRESS);
   Wire.write(LSM303_OUT_X_H_M);
   last_status = Wire.endTransmission();
-//  Serial.print(".last_status:");
-//  Serial.print(last_status);
+//  _SERIAL_PORT_.print(".last_status:");
+//  _SERIAL_PORT_.print(last_status);
   Wire.requestFrom(MAG_ADDRESS, 6);
 
   unsigned int millis_start = millis();

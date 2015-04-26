@@ -10,12 +10,12 @@
 
 class Motors {
   private:
-    Servo port, vertical, starbord;
-    int port_pin, vertical_pin, starbord_pin;
+    Servo port, vertical, starbord,vertical2;
+    int port_pin, vertical_pin, starbord_pin,vertical2_pin;
     
   public:
   
-    Motors(int p_pin, int v_pin, int s_pin);
+    Motors(int p_pin, int v_pin, int s_pin,int v2_pin);
     void goport(int p);
     void govertical(int v);
     void gostarbord(int s);

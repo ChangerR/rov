@@ -65,16 +65,16 @@ void sendCommand(byte command){
 void MS5803_14BA::device_setup(){
   Settings::capability_bitarray |= (1 << DEAPTH_CAPABLE);
 
-  Serial.println("Depth Sensor setup.");
+  _SERIAL_PORT_.println("Depth Sensor setup.");
   Wire.begin();
-  Serial.println("Depth Sensor: initialized I2C");
+  _SERIAL_PORT_.println("Depth Sensor: initialized I2C");
   delay(10);
 
   // Reset the device and check for device presence
 
   sendCommand(Reset);
   delay(10);
-  Serial.println("Depth Sensor is reset");
+  _SERIAL_PORT_.println("Depth Sensor is reset");
 
   // Get the calibration constants and store in array
 
@@ -89,7 +89,7 @@ void MS5803_14BA::device_setup(){
     CalConstant[i] = (((unsigned int)ByteHigh << 8) + ByteLow);
   }
 
-  Serial.println("Depth: Calibration constants are:");
+  _SERIAL_PORT_.println("Depth: Calibration constants are:");
 
   for (byte i=0; i < 8; i++)
   {
@@ -107,10 +107,10 @@ void MS5803_14BA::device_loop(Command command){
   else if (command.cmp("dtwa")){
     if (Settings::water_type == FreshWater) {
       Settings::water_type = SaltWater;
-      Serial.println(F("dtwa:1;"));
+      _SERIAL_PORT_.println(F("dtwa:1;"));
     } else {
       Settings::water_type =  FreshWater;
-      Serial.println(F("dtwa:0;"));
+      _SERIAL_PORT_.println(F("dtwa:0;"));
     }
   }
 
@@ -191,10 +191,10 @@ void MS5803_14BA::device_loop(Command command){
   // Print the temperature results
 
   Temperature = Temperature / 100;  // Convert to degrees C
-  Serial.print("First-Order Temperature in Degrees C is ");
-  Serial.println(Temperature);
-  Serial.print("Second-Order Temperature in Degrees C is ");
-  Serial.println(Temperature - (T2 / 100));
+  _SERIAL_PORT_.print("First-Order Temperature in Degrees C is ");
+  _SERIAL_PORT_.println(Temperature);
+  _SERIAL_PORT_.print("Second-Order Temperature in Degrees C is ");
+  _SERIAL_PORT_.println(Temperature - (T2 / 100));
   envdata::TEMP = Temperature- (T2 / 100);
   // Calculate the pressure parameters
 

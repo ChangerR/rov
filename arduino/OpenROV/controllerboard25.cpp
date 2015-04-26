@@ -74,21 +74,21 @@ void readTemp(){
 float readCurrent(int pin){
   int voltage = analogRead(pin);
   
-  //Serial.print(voltage);
+  //_SERIAL_PORT_.print(voltage);
   return mapf(voltage,0,1023,0,10); 
 }
 
 float read20Volts(int pin){
   int voltage = analogRead(pin);
   
-  //Serial.print(voltage);
+  //_SERIAL_PORT_.print(voltage);
   return mapf(voltage,0,1023,0,20); 
 }
 
 float readBrdCurrent(int pin){
   int voltage = analogRead(pin);
   
-  //Serial.print(voltage);
+  //_SERIAL_PORT_.print(voltage);
   return mapf(voltage,0,1023,0,2); 
 }
 
@@ -153,33 +153,33 @@ void Controller25::device_loop(Command command){
   
   if (onesecondtimer.elapsed (1000)){
     readTemp();
-    Serial.print(F("BRDT:"));
-    Serial.print(celsiusTempRead);
-    Serial.print(';');
-    Serial.print(F("SC1I:"));
-    Serial.print(readCurrent(A3));
-    Serial.print(';');
-    Serial.print(F("SC2I:"));
-    Serial.print(readCurrent(A2));
-    Serial.print(';');
-    Serial.print(F("SC3I:"));
-    Serial.print(readCurrent(A1));
-    Serial.print(';');
-    Serial.print(F("BRDI:"));
-    Serial.print(readBrdCurrent(A0));
-    Serial.print(';');
-    Serial.print(F("BT1I:"));
-    Serial.print(readCurrent(A6));
-    Serial.print(';');
-    Serial.print(F("BT2I:"));
-    Serial.print(readCurrent(A5));
-    Serial.print(';');
-    Serial.print(F("BRDV:"));
-    Serial.print(read20Volts(A4));
-    Serial.print(';');
-    Serial.print(F("AVCC:"));
-    Serial.print(readVcc());
-    Serial.println(';');    
+    _SERIAL_PORT_.print(F("BRDT:"));
+    _SERIAL_PORT_.print(celsiusTempRead);
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("SC1I:"));
+    _SERIAL_PORT_.print(readCurrent(A3));
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("SC2I:"));
+    _SERIAL_PORT_.print(readCurrent(A2));
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("SC3I:"));
+    _SERIAL_PORT_.print(readCurrent(A1));
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("BRDI:"));
+    _SERIAL_PORT_.print(readBrdCurrent(A0));
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("BT1I:"));
+    _SERIAL_PORT_.print(readCurrent(A6));
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("BT2I:"));
+    _SERIAL_PORT_.print(readCurrent(A5));
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("BRDV:"));
+    _SERIAL_PORT_.print(read20Volts(A4));
+    _SERIAL_PORT_.print(';');
+    _SERIAL_PORT_.print(F("AVCC:"));
+    _SERIAL_PORT_.print(readVcc());
+    _SERIAL_PORT_.println(';');    
     
   }
 

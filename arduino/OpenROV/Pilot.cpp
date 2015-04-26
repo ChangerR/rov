@@ -30,7 +30,7 @@ int raw_yaw, yaw;
 
 void Pilot::device_setup(){
   pilotTimer.reset();
-  Serial.println(F("log:pilot setup complete;"));
+  _SERIAL_PORT_.println(F("log:pilot setup complete;"));
 }
 
 
@@ -47,7 +47,7 @@ void Pilot::device_loop(Command command){
 
         int argsToSend[] = {1,00}; //include number of parms as last parm
         command.pushCommand("yaw",argsToSend);
-        Serial.println(F("log:hold_disabled;"));
+        _SERIAL_PORT_.println(F("log:hold_disabled;"));
 
       } else {
         _headingHoldEnabled = true;
@@ -57,12 +57,12 @@ void Pilot::device_loop(Command command){
           _headingHoldTarget = command.args[1];
         }
         tgt_Hdg = _headingHoldTarget;
-        Serial.print(F("log:hold_enabled on="));
-        Serial.print(tgt_Hdg);
-        Serial.println(';');
-        Serial.print(F("thdg:"));
-        Serial.print(tgt_Hdg);
-        Serial.println(';');
+        _SERIAL_PORT_.print(F("log:hold_enabled on="));
+        _SERIAL_PORT_.print(tgt_Hdg);
+        _SERIAL_PORT_.println(';');
+        _SERIAL_PORT_.print(F("thdg:"));
+        _SERIAL_PORT_.print(tgt_Hdg);
+        _SERIAL_PORT_.println(';');
       }
     }
 
@@ -75,7 +75,7 @@ void Pilot::device_loop(Command command){
 
         int argsToSend[] = {1,0}; //include number of parms as last parm
         command.pushCommand("lift",argsToSend);
-        Serial.println(F("log:depth_hold_disabled;"));
+        _SERIAL_PORT_.println(F("log:depth_hold_disabled;"));
 
       } else {
         _depthHoldEnabled = true;
@@ -85,12 +85,12 @@ void Pilot::device_loop(Command command){
           _depthHoldTarget = command.args[1];
         }
         target_depth = _depthHoldTarget;
-        Serial.print(F("log:dhold_enabled on="));
-        Serial.print(target_depth);
-        Serial.println(';');
-        Serial.print(F("tdpt:"));
-        Serial.print(target_depth);
-        Serial.println(';');
+        _SERIAL_PORT_.print(F("log:dhold_enabled on="));
+        _SERIAL_PORT_.print(target_depth);
+        _SERIAL_PORT_.println(';');
+        _SERIAL_PORT_.print(F("tdpt:"));
+        _SERIAL_PORT_.print(target_depth);
+        _SERIAL_PORT_.println(';');
       }
     }
 
@@ -112,10 +112,10 @@ void Pilot::device_loop(Command command){
         raw_lift = depth_Error * loop_Gain;
         lift = constrain(raw_lift, -50, 50);
 
-        Serial.println(F("log:dhold pushing command;"));
-        Serial.print(F("dp_er:"));
-        Serial.print(depth_Error);
-        Serial.println(';');
+        _SERIAL_PORT_.println(F("log:dhold pushing command;"));
+        _SERIAL_PORT_.print(F("dp_er:"));
+        _SERIAL_PORT_.print(depth_Error);
+        _SERIAL_PORT_.println(';');
         int argsToSend[] = {1,lift}; //include number of parms as last parm
         command.pushCommand("lift",argsToSend);
 
@@ -153,10 +153,10 @@ void Pilot::device_loop(Command command){
         // Constrain and output to motors
 
         yaw = constrain(raw_yaw, -50, 50);
-        Serial.println(F("log:hold pushing command;"));
-        Serial.print(F("p_er:"));
-        Serial.print(hdg_Error);
-        Serial.println(';');
+        _SERIAL_PORT_.println(F("log:hold pushing command;"));
+        _SERIAL_PORT_.print(F("p_er:"));
+        _SERIAL_PORT_.print(hdg_Error);
+        _SERIAL_PORT_.println(';');
 
         int argsToSend[] = {1,yaw}; //include number of parms as last parm
         command.pushCommand("yaw",argsToSend);

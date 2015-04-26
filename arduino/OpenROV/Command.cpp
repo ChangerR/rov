@@ -1,3 +1,4 @@
+#include "AConfig.h"
 #include "Command.h"
 
 
@@ -13,8 +14,8 @@
 
 boolean getSerialString(){
     static byte dataBufferIndex = 0;
-    while(Serial.available()>0){
-        char incomingbyte = Serial.read();
+    while(_SERIAL_PORT_.available()>0){
+        char incomingbyte = _SERIAL_PORT_.read();
  //       if(incomingbyte==startChar){
  //           dataBufferIndex = 0;  //Initialize our dataBufferIndex variable
        if (storeString == false) {
@@ -82,24 +83,24 @@ boolean Command::get(){
      if (internalCommandBuffer_tail == MAX_COMMANDS) internalCommandBuffer_tail =0;
      strcpy(_commandText,c.cmdtext);
      if (_commandText==""){
-      Serial.print(F("icmd: CMD MUNGED!;")); 
+      _SERIAL_PORT_.print(F("icmd: CMD MUNGED!;")); 
       return false;  
      }
-     Serial.print(F("icmd:"));     
-     Serial.print(_commandText);
-     Serial.print('(');
+     _SERIAL_PORT_.print(F("icmd:"));     
+     _SERIAL_PORT_.print(_commandText);
+     _SERIAL_PORT_.print('(');
      for(int i = 1; i<c.cmdargs[0]+1; i++){
        args[i] = c.cmdargs[i];
         if(i>1){
-          Serial.print(','); 
+          _SERIAL_PORT_.print(','); 
         }
-        Serial.print(args[i]);        
+        _SERIAL_PORT_.print(args[i]);        
      }
      //need to add the trailing # of arguments to the count or else have people do it in the call which sucks.
 
      commandReady = true;
 
-     Serial.println(");"); 
+     _SERIAL_PORT_.println(");"); 
      return true;
   }
 
@@ -113,7 +114,7 @@ void Command::pushCommand(char* cmdtext, int cmdargs[MAX_ARGS]){
     InternalCommand c;
     strcpy(c.cmdtext,cmdtext);
     if (strlen(c.cmdtext) <1) {
-        Serial.print(F("pushcmd: cmdtext MUNGED!;")); 
+        _SERIAL_PORT_.print(F("pushcmd: cmdtext MUNGED!;")); 
     }
     for(int i = 0; i<cmdargs[0]+1; i++){
       c.cmdargs[i] = cmdargs[i];
@@ -134,22 +135,22 @@ void Command::parse(){
   while (pch != NULL){
     if (i == 0) {
       //this is the command text
-     Serial.print(F("cmd:"));     
-     Serial.print(pch);
-     Serial.print('(');
+     _SERIAL_PORT_.print(F("cmd:"));     
+     _SERIAL_PORT_.print(pch);
+     _SERIAL_PORT_.print('(');
      strcpy(_commandText,pch);
     } else {
       //this is a parameter
       args[i] = atoi(pch);
       if(i>1){
-        Serial.print(','); 
+        _SERIAL_PORT_.print(','); 
       }
-      Serial.print(pch); 
+      _SERIAL_PORT_.print(pch); 
     }
     i++;
     pch = strtok (NULL," ,();");
   }
-  Serial.println(");"); 
+  _SERIAL_PORT_.println(");"); 
   args[0] = i-1;
 }
 

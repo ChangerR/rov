@@ -610,7 +610,7 @@ int mpu_init(struct int_param_s *int_param)
             st->chip_cfg.accel_half = 0;
         else {
 #ifdef MPU_DEBUG
-            Serial.print("Unsupported software product rev: "); Serial.println(rev);
+            _SERIAL_PORT_.print("Unsupported software product rev: "); _SERIAL_PORT_.println(rev);
 #endif
             return -4;
         }
@@ -620,12 +620,12 @@ int mpu_init(struct int_param_s *int_param)
         rev = data[0] & 0x0F;
         if (!rev) {
 #ifdef MPU_DEBUG
-            Serial.println("Product ID read as 0 indicates device is either incompatible or an MPU3050");
+            _SERIAL_PORT_.println("Product ID read as 0 indicates device is either incompatible or an MPU3050");
 #endif
             return -6;
         } else if (rev == 4) {
 #ifdef MPU_DEBUG
-            Serial.println("Half sensitivity part found.");
+            _SERIAL_PORT_.println("Half sensitivity part found.");
 #endif
             st->chip_cfg.accel_half = 1;
         } else
@@ -639,7 +639,7 @@ int mpu_init(struct int_param_s *int_param)
         st->chip_cfg.accel_half = 0;
     else {
 #ifdef MPU_DEBUG
-        Serial.print("Unsupported software product rev: "); Serial.println(rev);
+        _SERIAL_PORT_.print("Unsupported software product rev: "); _SERIAL_PORT_.println(rev);
 #endif
         return -7;
     }
@@ -691,12 +691,12 @@ int mpu_init(struct int_param_s *int_param)
 
 #ifdef AK89xx_SECONDARY
 #ifdef MPU_DEBUG
-    Serial.println("Setting up compass");
+    _SERIAL_PORT_.println("Setting up compass");
 #endif
     errCode = setup_compass();
     if (errCode != 0) {
 #ifdef MPU_DEBUG
-       Serial.print("Setup compass failed: "); Serial.println(errCode); 
+       _SERIAL_PORT_.print("Setup compass failed: "); _SERIAL_PORT_.println(errCode); 
 #endif
     }
     if (mpu_set_compass_sample_rate(10))
@@ -2207,8 +2207,8 @@ int mpu_load_firmware(unsigned short length, const unsigned char *firmware,
             
         if ((errCode = mpu_write_mem(ii, this_write, progBuffer))) {
 #ifdef MPU_DEBUG
-            Serial.print("fimrware write failed: ");
-            Serial.println(errCode);
+            _SERIAL_PORT_.print("fimrware write failed: ");
+            _SERIAL_PORT_.println(errCode);
 #endif
             return -3;
         }
@@ -2218,17 +2218,17 @@ int mpu_load_firmware(unsigned short length, const unsigned char *firmware,
             
         if (memcmp(progBuffer, cur, this_write)) {
 #ifdef MPU_DEBUG
-            Serial.print("Firmware compare failed addr "); Serial.println(ii);
+            _SERIAL_PORT_.print("Firmware compare failed addr "); _SERIAL_PORT_.println(ii);
             for (int i = 0; i < 10; i++) {
-              Serial.print(progBuffer[i]); 
-              Serial.print(" ");
+              _SERIAL_PORT_.print(progBuffer[i]); 
+              _SERIAL_PORT_.print(" ");
             }
-            Serial.println();
+            _SERIAL_PORT_.println();
             for (int i = 0; i < 10; i++) {
-              Serial.print(cur[i]); 
-              Serial.print(" ");
+              _SERIAL_PORT_.print(cur[i]); 
+              _SERIAL_PORT_.print(" ");
             }
-            Serial.println();
+            _SERIAL_PORT_.println();
 #endif
             return -5;
         }
@@ -2243,7 +2243,7 @@ int mpu_load_firmware(unsigned short length, const unsigned char *firmware,
     st->chip_cfg.dmp_loaded = 1;
     st->chip_cfg.dmp_sample_rate = sample_rate;
 #ifdef MPU_DEBUG
-    Serial.println("Firmware loaded");
+    _SERIAL_PORT_.println("Firmware loaded");
 #endif
     return 0;
 }
@@ -2318,7 +2318,7 @@ static int setup_compass(void)
     if (akm_addr > 0x0F) {
         /* TODO: Handle this case in all compass-related functions. */
 #ifdef MPU_DEBUG
-        Serial.println("Compass not found.");
+        _SERIAL_PORT_.println("Compass not found.");
 #endif
         return -1;
     }
@@ -2342,9 +2342,9 @@ static int setup_compass(void)
     st->chip_cfg.mag_sens_adj[1] = (long)data[1] + 128;
     st->chip_cfg.mag_sens_adj[2] = (long)data[2] + 128;
 #ifdef MPU_DEBUG
-    Serial.print("Compass sens: "); Serial.print(st->chip_cfg.mag_sens_adj[0]); Serial.print(" ");
-    Serial.print(st->chip_cfg.mag_sens_adj[1]); Serial.print(" ");
-    Serial.print(st->chip_cfg.mag_sens_adj[2]); Serial.println();
+    _SERIAL_PORT_.print("Compass sens: "); _SERIAL_PORT_.print(st->chip_cfg.mag_sens_adj[0]); _SERIAL_PORT_.print(" ");
+    _SERIAL_PORT_.print(st->chip_cfg.mag_sens_adj[1]); _SERIAL_PORT_.print(" ");
+    _SERIAL_PORT_.print(st->chip_cfg.mag_sens_adj[2]); _SERIAL_PORT_.println();
 #endif
 
     data[0] = AKM_POWER_DOWN;

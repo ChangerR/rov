@@ -82,7 +82,6 @@ Settings settings;
   MS5803_14BA DeapthSensor;
 #endif
 
-
 Command cmd;
 
 volatile byte wdt_resets = 0; //watchdog resets
@@ -97,7 +96,7 @@ int loops_per_sec;
 void setup(){
   disableWatchdog();
   enableWatchdog();
-  Serial.begin(115200);
+  _SERIAL_PORT_.begin(9600);
   //watchdogOn();
 
   check = EEPROM.read(0);
@@ -107,10 +106,10 @@ void setup(){
   {
     wdt_resets = EEPROM.read(1);
     EEPROM.write(0,0); // reset byte so the EEPROM is not read on next startup
-    Serial.println("log:Watchdog was triggered and the following was read from EEPROM;");
-    Serial.print("log:");
-    Serial.println(wdt_resets);
-    Serial.print(';');
+    _SERIAL_PORT_.println("log:Watchdog was triggered and the following was read from EEPROM;");
+    _SERIAL_PORT_.print("log:");
+    _SERIAL_PORT_.println(wdt_resets);
+    _SERIAL_PORT_.print(';');
   }
   
   pinMode(13, OUTPUT);
@@ -129,9 +128,9 @@ void loop(){
   loops_per_sec++;
   if (Output1000ms.elapsed(1000)) {
     OutputSharedData(); 
-    Serial.print(F("alps:"));
-    Serial.print(loops_per_sec);
-    Serial.println(';');
+    _SERIAL_PORT_.print(F("alps:"));
+    _SERIAL_PORT_.print(loops_per_sec);
+    _SERIAL_PORT_.println(';');
     loops_per_sec = 0; 
   }
   if (Output100ms.elapsed(100)) {

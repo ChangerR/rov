@@ -53,23 +53,23 @@ void MPU9150::device_setup(){
   MPU.selectDevice(MPUDeviceId);
   //  MAG fusion temprorarily disabled until we dial in the noisy MAG readings
   if (!MPU.init(MPU_UPDATE_RATE, MPU_MAG_MIX_GYRO_ONLY, MAG_UPDATE_RATE, MPU_LPF_RATE)){
-	Serial.println(F("log:Trying other MPU9150 address to init;"));
-	Serial.print(F("log:IMU Address was :"));
-	Serial.print(1);
+	_SERIAL_PORT_.println(F("log:Trying other MPU9150 address to init;"));
+	_SERIAL_PORT_.print(F("log:IMU Address was :"));
+	_SERIAL_PORT_.print(1);
 	MPUDeviceId = !MPUDeviceId;
-	Serial.print(F(" but is now:"));
-	Serial.print(MPUDeviceId);
-	Serial.println(";");
+	_SERIAL_PORT_.print(F(" but is now:"));
+	_SERIAL_PORT_.print(MPUDeviceId);
+	_SERIAL_PORT_.println(";");
 	MPU.selectDevice(MPUDeviceId);
 	if (MPU.init(MPU_UPDATE_RATE, MPU_MAG_MIX_GYRO_ONLY, MAG_UPDATE_RATE, MPU_LPF_RATE)){
 		DidInit = true;
-		Serial.println(F("log:Init worked the second time;"));
+		_SERIAL_PORT_.println(F("log:Init worked the second time;"));
 	} else {
-		Serial.println(F("log:Failed to init on both addresses;"));
+		_SERIAL_PORT_.println(F("log:Failed to init on both addresses;"));
 	}
   } else {
 	DidInit = true;
-	Serial.println(F("log:init on primary addresses;"));
+	_SERIAL_PORT_.println(F("log:init on primary addresses;"));
   }                             // start the MPU
   Settings::capability_bitarray |= (1 << COMPASS_CAPABLE);
   Settings::capability_bitarray |= (1 << ORIENTATION_CAPABLE);
@@ -110,7 +110,7 @@ void MPU9150::device_loop(Command command){
     counter = 359;
     InCallibrationMode = true;
     calibration_timer.reset();
-    Serial.println(F("!!!:While the compass counts down from 360 to 0, rotate the ROV slowly in all three axis;"));
+    _SERIAL_PORT_.println(F("!!!:While the compass counts down from 360 to 0, rotate the ROV slowly in all three axis;"));
 
   }
 
@@ -171,33 +171,33 @@ void MPU9150::device_loop(Command command){
         }
 
         if (changed) {
-          Serial.print(F("dia:accel.MinX=")); Serial.print(calData.accelMinX); Serial.println(";");
-          Serial.print(F("dia:accel.maxX=")); Serial.print(calData.accelMaxX); Serial.println(";");
-          Serial.print(F("dia:accel.minY=")); Serial.print(calData.accelMinY); Serial.println(";");
-          Serial.print(F("dia:accel.maxY=")); Serial.print(calData.accelMaxY); Serial.println(";");
-          Serial.print(F("dia:accel.minZ=")); Serial.print(calData.accelMinZ); Serial.println(";");
-          Serial.print(F("dia:accel.maxZ=")); Serial.print(calData.accelMaxZ); Serial.println(";");
-          Serial.print(F("dia:mag.minX=")); Serial.print(calData.magMinX); Serial.println(";");
-          Serial.print(F("dia:mag.maxX=")); Serial.print(calData.magMaxX); Serial.println(";");
-          Serial.print(F("dia:mag.minY=")); Serial.print(calData.magMinY); Serial.println(";");
-          Serial.print(F("dia:mag.maxY=")); Serial.print(calData.magMaxY); Serial.println(";");
-          Serial.print(F("dia:mag.minZ=")); Serial.print(calData.magMinZ); Serial.println(";");
-          Serial.print(F("dia:mag.maxZ=")); Serial.print(calData.magMaxZ); Serial.println(";");
+          _SERIAL_PORT_.print(F("dia:accel.MinX=")); _SERIAL_PORT_.print(calData.accelMinX); _SERIAL_PORT_.println(";");
+          _SERIAL_PORT_.print(F("dia:accel.maxX=")); _SERIAL_PORT_.print(calData.accelMaxX); _SERIAL_PORT_.println(";");
+          _SERIAL_PORT_.print(F("dia:accel.minY=")); _SERIAL_PORT_.print(calData.accelMinY); _SERIAL_PORT_.println(";");
+          _SERIAL_PORT_.print(F("dia:accel.maxY=")); _SERIAL_PORT_.print(calData.accelMaxY); _SERIAL_PORT_.println(";");
+          _SERIAL_PORT_.print(F("dia:accel.minZ=")); _SERIAL_PORT_.print(calData.accelMinZ); _SERIAL_PORT_.println(";");
+          _SERIAL_PORT_.print(F("dia:accel.maxZ=")); _SERIAL_PORT_.print(calData.accelMaxZ); _SERIAL_PORT_.println(";");
+          _SERIAL_PORT_.print(F("dia:mag.minX=")); _SERIAL_PORT_.print(calData.magMinX); _SERIAL_PORT_.println(";");
+          _SERIAL_PORT_.print(F("dia:mag.maxX=")); _SERIAL_PORT_.print(calData.magMaxX); _SERIAL_PORT_.println(";");
+          _SERIAL_PORT_.print(F("dia:mag.minY=")); _SERIAL_PORT_.print(calData.magMinY); _SERIAL_PORT_.println(";");
+          _SERIAL_PORT_.print(F("dia:mag.maxY=")); _SERIAL_PORT_.print(calData.magMaxY); _SERIAL_PORT_.println(";");
+          _SERIAL_PORT_.print(F("dia:mag.minZ=")); _SERIAL_PORT_.print(calData.magMinZ); _SERIAL_PORT_.println(";");
+          _SERIAL_PORT_.print(F("dia:mag.maxZ=")); _SERIAL_PORT_.print(calData.magMaxZ); _SERIAL_PORT_.println(";");
         }
       }
       if (calibration_timer.elapsed (100)) {
         counter--;
         navdata::HDGD = counter;
-        Serial.print(F("hdgd:"));
-        Serial.print(navdata::HDGD);
-        Serial.print(';');
+        _SERIAL_PORT_.print(F("hdgd:"));
+        _SERIAL_PORT_.print(navdata::HDGD);
+        _SERIAL_PORT_.print(';');
       }
     }
     if (counter <= 0){
    //   calData.accelValid = true;
       calData.magValid = true;
       calLibWrite(MPUDeviceId, &calData);
-      Serial.println(F("log:Accel cal data saved for device;"));
+      _SERIAL_PORT_.println(F("log:Accel cal data saved for device;"));
       InCallibrationMode = false;
       MPU9150::device_setup();
     }
@@ -209,11 +209,11 @@ void MPU9150::device_loop(Command command){
 //    MPU.selectDevice(MPUDeviceId);
     MPU.read();
 //    {
-//        Serial.println(F("log:SwappingIMUAddress;"));
+//        _SERIAL_PORT_.println(F("log:SwappingIMUAddress;"));
 //        MPUDeviceId = !MPUDeviceId;
 //        MPU.selectDevice(MPUDeviceId);
 //        if(!MPU.read()){
-//		Serial.println(F("log:Failed to read IMU on both addresses. Sleeping for 1 minute"));
+//		_SERIAL_PORT_.println(F("log:Failed to read IMU on both addresses. Sleeping for 1 minute"));
 //		DidInit = false;
 //	}
 //    }

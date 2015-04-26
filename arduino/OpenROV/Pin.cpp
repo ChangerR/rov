@@ -1,3 +1,4 @@
+#include "AConfig.h"
 #include "Pin.h"
 
 Pin::Pin(String device_name, int pin_number, boolean digital_truth, boolean in_out){
@@ -30,7 +31,7 @@ void Pin::send(int val){
   String temp = name + SEPARATER + (String)val + DELIMITER;
   temp.toCharArray(output, MAX_LEN-1);
   
-  Serial.write(output);
+  _SERIAL_PORT_.write(output);
 }
 
 int Pin::read(){

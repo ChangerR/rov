@@ -1,15 +1,17 @@
 #include "Motors.h"
 
-Motors::Motors(int p_pin, int v_pin, int s_pin){
+Motors::Motors(int p_pin, int v_pin, int s_pin,int v2_pin){
   port_pin = p_pin;
   vertical_pin = v_pin;
   starbord_pin = s_pin;
+  
 }
 
 void Motors::reset(){
   port.attach(port_pin);
   vertical.attach(vertical_pin);
   starbord.attach(starbord_pin);
+  vertical2.attach(vertical2_pin);
 }
 
 void Motors::go(int p, int v, int s){
@@ -33,6 +35,7 @@ void Motors::govertical(int v){
   if (v<MIDPOINT) modifier = motor_negative_modifer[vertical_motor];
   int delta = v-MIDPOINT;
   vertical.writeMicroseconds(constrain(MIDPOINT+delta*modifier,1000,2000));
+  vertical2.writeMicroseconds(constrain(MIDPOINT+delta*modifier,1000,2000));
 }
 
 void Motors::gostarbord(int s){
@@ -47,13 +50,15 @@ void Motors::stop(){
   port.writeMicroseconds(MIDPOINT);
   vertical.writeMicroseconds(MIDPOINT);
   starbord.writeMicroseconds(MIDPOINT);
+  vertical2.writeMicroseconds(MIDPOINT);
   port.detach();
   vertical.detach();
   starbord.detach();
+  vertical2.detach();
 }
 
 bool Motors::attached(){
-  return port.attached() || vertical.attached() || starbord.attached();
+  return port.attached() || vertical.attached() || starbord.attached() ||vertical2.attached();
 }
 
     //hard coded to reverse the starbord motor assuming we are using the reverse prop.

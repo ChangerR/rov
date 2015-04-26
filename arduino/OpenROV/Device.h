@@ -108,8 +108,8 @@ void log(char* format, ...)
     va_start(args, format);
     vsnprintf(line, sizeof(line), format, args);
     va_end(args);
-    Serial.print(F("log: "));
-    Serial.println(line);
+    _SERIAL_PORT_.print(F("log: "));
+    _SERIAL_PORT_.println(line);
 }
 
 #else

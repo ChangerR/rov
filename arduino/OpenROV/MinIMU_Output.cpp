@@ -35,59 +35,59 @@ with MinIMU-9-Arduino-AHRS. If not, see <http://www.gnu.org/licenses/>.
 
 void printdata(void)
 {    
-      Serial.print(F("IMUMatrix:"));
+      _SERIAL_PORT_.print(F("IMUMatrix:"));
 
       #if PRINT_EULER == 1
-      Serial.print(F("ANG|"));
-      Serial.print(ToDeg(roll));
-      Serial.print(",");
-      Serial.print(ToDeg(pitch));
-      Serial.print(",");
-      Serial.print(ToDeg(yaw));
-      Serial.print(F(",HD|"));
-      Serial.print(ToDeg(MAG_Heading));
+      _SERIAL_PORT_.print(F("ANG|"));
+      _SERIAL_PORT_.print(ToDeg(roll));
+      _SERIAL_PORT_.print(",");
+      _SERIAL_PORT_.print(ToDeg(pitch));
+      _SERIAL_PORT_.print(",");
+      _SERIAL_PORT_.print(ToDeg(yaw));
+      _SERIAL_PORT_.print(F(",HD|"));
+      _SERIAL_PORT_.print(ToDeg(MAG_Heading));
       #endif      
       #if PRINT_ANALOGS==1
-      Serial.print(",AN|");
-      Serial.print(AN[0]);  //(int)read_adc(0)
-      Serial.print(",");
-      Serial.print(AN[1]);
-      Serial.print(",");
-      Serial.print(AN[2]);  
-      Serial.print(",");
-      Serial.print(AN[3]);
-      Serial.print (",");
-      Serial.print(AN[4]);
-      Serial.print (",");
-      Serial.print(AN[5]);
-      Serial.print(",");
-      Serial.print(c_magnetom_x);
-      Serial.print (",");
-      Serial.print(c_magnetom_y);
-      Serial.print (",");
-      Serial.print(c_magnetom_z);
+      _SERIAL_PORT_.print(",AN|");
+      _SERIAL_PORT_.print(AN[0]);  //(int)read_adc(0)
+      _SERIAL_PORT_.print(",");
+      _SERIAL_PORT_.print(AN[1]);
+      _SERIAL_PORT_.print(",");
+      _SERIAL_PORT_.print(AN[2]);  
+      _SERIAL_PORT_.print(",");
+      _SERIAL_PORT_.print(AN[3]);
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(AN[4]);
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(AN[5]);
+      _SERIAL_PORT_.print(",");
+      _SERIAL_PORT_.print(c_magnetom_x);
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(c_magnetom_y);
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(c_magnetom_z);
       #endif
       #if PRINT_DCM == 1
-      Serial.print (F(",DCM|"));
-      Serial.print(convert_to_dec(DCM_Matrix[0][0]));
-      Serial.print (",");
-      Serial.print(convert_to_dec(DCM_Matrix[0][1]));
-      Serial.print (",");
-      Serial.print(convert_to_dec(DCM_Matrix[0][2]));
-      Serial.print (",");
-      Serial.print(convert_to_dec(DCM_Matrix[1][0]));
-      Serial.print (",");
-      Serial.print(convert_to_dec(DCM_Matrix[1][1]));
-      Serial.print (",");
-      Serial.print(convert_to_dec(DCM_Matrix[1][2]));
-      Serial.print (",");
-      Serial.print(convert_to_dec(DCM_Matrix[2][0]));
-      Serial.print (",");
-      Serial.print(convert_to_dec(DCM_Matrix[2][1]));
-      Serial.print (",");
-      Serial.print(convert_to_dec(DCM_Matrix[2][2]));
+      _SERIAL_PORT_.print (F(",DCM|"));
+      _SERIAL_PORT_.print(convert_to_dec(DCM_Matrix[0][0]));
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(convert_to_dec(DCM_Matrix[0][1]));
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(convert_to_dec(DCM_Matrix[0][2]));
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(convert_to_dec(DCM_Matrix[1][0]));
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(convert_to_dec(DCM_Matrix[1][1]));
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(convert_to_dec(DCM_Matrix[1][2]));
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(convert_to_dec(DCM_Matrix[2][0]));
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(convert_to_dec(DCM_Matrix[2][1]));
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(convert_to_dec(DCM_Matrix[2][2]));
       #endif
-      Serial.println(';');    
+      _SERIAL_PORT_.println(';');    
       
 }
 

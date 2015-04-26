@@ -95,7 +95,7 @@ void L3G::read()
   // to do slave-transmit subaddress updating.
   Wire.write(L3G_OUT_X_L | (1 << 7));
   uint8_t result_code = Wire.endTransmission();
-//  Serial.print(result_code);
+//  _SERIAL_PORT_.print(result_code);
   Wire.requestFrom(address, (byte)6);
 
   while (Wire.available() < 6);

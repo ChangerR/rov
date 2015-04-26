@@ -9,7 +9,7 @@
 
 //Motors motors(9, 10, 11);
 //Motors motors(6, 7, 8);
-Motors motors(PORT_PIN,VERTICLE_PIN,STARBORD_PIN);
+Motors motors(PORT_PIN,VERTICLE_PIN,STARBORD_PIN,VERTICLE2_PIN);
 
 int new_p = MIDPOINT;
 int new_s = MIDPOINT;
@@ -78,19 +78,19 @@ void Thrusters::device_loop(Command command){
       Motors::motor_negative_modifer[2] = command.args[6]/100;
   }
   if (command.cmp("rmtrmod")) {
-      Serial.print(F("mtrmod:"));
-      Serial.print(Motors::motor_positive_modifer[0]);
-      Serial.print (",");
-      Serial.print(Motors::motor_positive_modifer[1]);
-      Serial.print (",");
-      Serial.print(Motors::motor_positive_modifer[2]);
-      Serial.print (",");
-      Serial.print(Motors::motor_negative_modifer[0]);
-      Serial.print (",");
-      Serial.print(Motors::motor_negative_modifer[1]);
-      Serial.print (",");
-      Serial.print(Motors::motor_negative_modifer[2]);
-      Serial.println (";");
+      _SERIAL_PORT_.print(F("mtrmod:"));
+      _SERIAL_PORT_.print(Motors::motor_positive_modifer[0]);
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(Motors::motor_positive_modifer[1]);
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(Motors::motor_positive_modifer[2]);
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(Motors::motor_negative_modifer[0]);
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(Motors::motor_negative_modifer[1]);
+      _SERIAL_PORT_.print (",");
+      _SERIAL_PORT_.print(Motors::motor_negative_modifer[2]);
+      _SERIAL_PORT_.println (";");
   }
   if (command.cmp("go")) {
       //ignore corrupt data
@@ -181,9 +181,9 @@ void Thrusters::device_loop(Command command){
   #ifdef ESCPOWER_PIN
     else if (command.cmp("escp")) {
       escpower.write(command.args[1]); //Turn on the ESCs
-      Serial.print(F("log:escpower="));
-      Serial.print(command.args[1]);
-      Serial.println(';');
+      _SERIAL_PORT_.print(F("log:escpower="));
+      _SERIAL_PORT_.print(command.args[1]);
+      _SERIAL_PORT_.println(';');
     }
   #endif
     else if (command.cmp("start")) {
@@ -194,9 +194,9 @@ void Thrusters::device_loop(Command command){
     }
     #ifdef ESCPOWER_PIN
     else if ((command.cmp("mcal")) && (canPowerESCs)){
-      Serial.println(F("log:Motor Callibration Staring;"));
+      _SERIAL_PORT_.println(F("log:Motor Callibration Staring;"));
       //Experimental. Add calibration code here
-      Serial.println(F("log:Motor Callibration Complete;"));
+      _SERIAL_PORT_.println(F("log:Motor Callibration Complete;"));
   }
     #endif
   //to reduce AMP spikes, smooth large power adjustments out. This incirmentally adjusts the motors and servo
@@ -223,21 +223,21 @@ void Thrusters::device_loop(Command command){
 
   //The output from the motors is unique to the thruster configuration
   if (thrusterOutput.elapsed(1000)){
-    Serial.print(F("motors:"));
-    Serial.print(new_p);
-    Serial.print(',');
-    Serial.print(new_v);
-    Serial.print(',');
-    Serial.print(new_s);
-    Serial.println(';');
+    _SERIAL_PORT_.print(F("motors:"));
+    _SERIAL_PORT_.print(new_p);
+    _SERIAL_PORT_.print(',');
+    _SERIAL_PORT_.print(new_v);
+    _SERIAL_PORT_.print(',');
+    _SERIAL_PORT_.print(new_s);
+    _SERIAL_PORT_.println(';');
 
-    Serial.print(F("mtarg:"));
-    Serial.print(p);
-    Serial.print(',');
-    Serial.print(v);
-    Serial.print(',');
-    Serial.print(s);
-    Serial.println(';');
+    _SERIAL_PORT_.print(F("mtarg:"));
+    _SERIAL_PORT_.print(p);
+    _SERIAL_PORT_.print(',');
+    _SERIAL_PORT_.print(v);
+    _SERIAL_PORT_.print(',');
+    _SERIAL_PORT_.print(s);
+    _SERIAL_PORT_.println(';');
 
   }
 }

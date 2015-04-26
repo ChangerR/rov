@@ -195,9 +195,9 @@ boolean MPU9150Lib::init(int mpuRate, int magMix, int magRate, int lpf)
 
 #ifdef MPULIB_DEBUG
   if (m_useMagCalibration)
-	  Serial.println("Using mag cal");
+	  _SERIAL_PORT_.println("Using mag cal");
   if (m_useAccelCalibration)
-	  Serial.println("Using accel cal");
+	  _SERIAL_PORT_.println("Using accel cal");
 #endif
 
   mpu_init_structures();
@@ -211,7 +211,7 @@ boolean MPU9150Lib::init(int mpuRate, int magMix, int magRate, int lpf)
   result = mpu_init(&int_param);
   if (result != 0) {
 #ifdef MPULIB_DEBUG
-     Serial.print("mpu_init failed with code: "); Serial.println(result);
+     _SERIAL_PORT_.print("mpu_init failed with code: "); _SERIAL_PORT_.println(result);
 #endif
      return false; 
   }
@@ -219,13 +219,13 @@ boolean MPU9150Lib::init(int mpuRate, int magMix, int magRate, int lpf)
   mpu_configure_fifo(INV_XYZ_GYRO | INV_XYZ_ACCEL);                  // get accel and gyro data in the FIFO also
 
 #ifdef MPULIB_DEBUG
-  Serial.println("Loading firmware");
+  _SERIAL_PORT_.println("Loading firmware");
 #endif
 
   if ((result = dmp_load_motion_driver_firmware()) != 0) {           // try to load the DMP firmware
 #ifdef MPULIB_DEBUG
-    Serial.print("Failed to load dmp firmware: ");
-    Serial.println(result);
+    _SERIAL_PORT_.print("Failed to load dmp firmware: ");
+    _SERIAL_PORT_.println(result);
 #endif
     return false;
   }
@@ -236,7 +236,7 @@ boolean MPU9150Lib::init(int mpuRate, int magMix, int magRate, int lpf)
   dmp_set_fifo_rate(mpuRate);
   if (mpu_set_dmp_state(1) != 0) {
 #ifdef MPULIB_DEBUG
-    Serial.println("mpu_set_dmp_state failed");
+    _SERIAL_PORT_.println("mpu_set_dmp_state failed");
 #endif
     return false;
   }
@@ -273,8 +273,8 @@ boolean MPU9150Lib::read()
     if ((millis() - m_lastMagSample) >= m_magInterval) {
       if ((result = mpu_get_compass_reg(m_rawMag, &timestamp)) != 0) {
 #ifdef MPULIB_DEBUG
-        Serial.print("Failed to read compass: ");
-        Serial.println(result);
+        _SERIAL_PORT_.print("Failed to read compass: ");
+        _SERIAL_PORT_.println(result);
 #endif
         return false;
       }
@@ -378,7 +378,7 @@ void MPU9150Lib::dataFusion()
 
   if (newMagYaw != newMagYaw) {                                 // check for nAn
 #ifdef MPULIB_DEBUG
-    Serial.println("***nAn\n");
+    _SERIAL_PORT_.println("***nAn\n");
 #endif
     return;                                                     // just ignore in this case
   }
@@ -420,38 +420,38 @@ void MPU9150Lib::dataFusion()
 
 void MPU9150Lib::printQuaternion(long *quat)
 {
-  Serial.print("w: "); Serial.print(quat[QUAT_W]);  
-  Serial.print(" x: "); Serial.print(quat[QUAT_X]);  
-  Serial.print(" y: "); Serial.print(quat[QUAT_Y]);  
-  Serial.print(" z: "); Serial.print(quat[QUAT_Z]);  
+  _SERIAL_PORT_.print("w: "); _SERIAL_PORT_.print(quat[QUAT_W]);  
+  _SERIAL_PORT_.print(" x: "); _SERIAL_PORT_.print(quat[QUAT_X]);  
+  _SERIAL_PORT_.print(" y: "); _SERIAL_PORT_.print(quat[QUAT_Y]);  
+  _SERIAL_PORT_.print(" z: "); _SERIAL_PORT_.print(quat[QUAT_Z]);  
 }
 
 void MPU9150Lib::printQuaternion(float *quat)
 {
-  Serial.print("w: "); Serial.print(quat[QUAT_W]);  
-  Serial.print(" x: "); Serial.print(quat[QUAT_X]);  
-  Serial.print(" y: "); Serial.print(quat[QUAT_Y]);  
-  Serial.print(" z: "); Serial.print(quat[QUAT_Z]);  
+  _SERIAL_PORT_.print("w: "); _SERIAL_PORT_.print(quat[QUAT_W]);  
+  _SERIAL_PORT_.print(" x: "); _SERIAL_PORT_.print(quat[QUAT_X]);  
+  _SERIAL_PORT_.print(" y: "); _SERIAL_PORT_.print(quat[QUAT_Y]);  
+  _SERIAL_PORT_.print(" z: "); _SERIAL_PORT_.print(quat[QUAT_Z]);  
 }
 
 void MPU9150Lib::printVector(short *vec)
 {
-  Serial.print("x: "); Serial.print(vec[VEC3_X]);  
-  Serial.print(" y: "); Serial.print(vec[VEC3_Y]);  
-  Serial.print(" z: "); Serial.print(vec[VEC3_Z]);    
+  _SERIAL_PORT_.print("x: "); _SERIAL_PORT_.print(vec[VEC3_X]);  
+  _SERIAL_PORT_.print(" y: "); _SERIAL_PORT_.print(vec[VEC3_Y]);  
+  _SERIAL_PORT_.print(" z: "); _SERIAL_PORT_.print(vec[VEC3_Z]);    
 }
 
 void MPU9150Lib::printVector(float *vec)
 {
-  Serial.print("x: "); Serial.print(vec[VEC3_X]);  
-  Serial.print(" y: "); Serial.print(vec[VEC3_Y]);  
-  Serial.print(" z: "); Serial.print(vec[VEC3_Z]);    
+  _SERIAL_PORT_.print("x: "); _SERIAL_PORT_.print(vec[VEC3_X]);  
+  _SERIAL_PORT_.print(" y: "); _SERIAL_PORT_.print(vec[VEC3_Y]);  
+  _SERIAL_PORT_.print(" z: "); _SERIAL_PORT_.print(vec[VEC3_Z]);    
 }
 
 void MPU9150Lib::printAngles(float *vec)
 {
-  Serial.print("x: "); Serial.print(vec[VEC3_X] * RAD_TO_DEGREE);  
-  Serial.print(" y: "); Serial.print(vec[VEC3_Y] * RAD_TO_DEGREE);  
-  Serial.print(" z: "); Serial.print(vec[VEC3_Z] * RAD_TO_DEGREE);    
+  _SERIAL_PORT_.print("x: "); _SERIAL_PORT_.print(vec[VEC3_X] * RAD_TO_DEGREE);  
+  _SERIAL_PORT_.print(" y: "); _SERIAL_PORT_.print(vec[VEC3_Y] * RAD_TO_DEGREE);  
+  _SERIAL_PORT_.print(" z: "); _SERIAL_PORT_.print(vec[VEC3_Z] * RAD_TO_DEGREE);    
 }
 #endif
