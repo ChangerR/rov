@@ -96,7 +96,7 @@ int loops_per_sec;
 void setup(){
   disableWatchdog();
   enableWatchdog();
-  _SERIAL_PORT_.begin(9600);
+  _SERIAL_PORT_.begin(115200);
   //watchdogOn();
 
   check = EEPROM.read(0);

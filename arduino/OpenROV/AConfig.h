@@ -46,6 +46,8 @@ const int softpinRX = 36;
 const int softpinTX = 37;
 extern SoftwareSerial apc;
 #define _SERIAL_PORT_ apc
+#elif defined(USE_SERIAL3)
+#define _SERIAL_PORT_ Serial3
 #else 
 #define _SERIAL_PORT_ Serial
 #endif

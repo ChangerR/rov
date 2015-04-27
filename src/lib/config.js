@@ -51,7 +51,7 @@ module.exports = {
   video_port: process.env.VIDEO_PORT || 8090,
   port: process.env.PORT || argv.port || 8080,
   serial: process.env.SERIAL || '/dev/ttyUSB0',
-  serial_baud: process.env.SERIAL_BAUD || 9600,
+  serial_baud: process.env.SERIAL_BAUD || 115200,
   preferences: nconf,
   OpenROVCamera: getLibPath(OpenROVCameraPath),
   OpenROVController: OpenROVControllerPath,
