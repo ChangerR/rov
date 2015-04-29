@@ -178,14 +178,14 @@
 	  
 	  $("#light_open_id").click(function() {
 		if(!light2_opened) {
-			$("#light_open_id").text = "关闭灯";
+			$("#light_open_id#text").data = "关闭灯";
 			$("#light_open_id").attr("class","btn btn-danger");
-			this.cockpit.socket.emit('light2_update',0);
+			CButton.cockpit.socket.emit('light2_update',0);
 			light2_opened = true;
 		}else{
-			$("#light_open_id").text = "打开灯";
+			$("#light_open_id#text").data = "打开灯";
 			$("#light_open_id").attr("class","btn btn-primary");
-			this.cockpit.socket.emit('light2_update',1);
+			CButton.cockpit.socket.emit('light2_update',1);
 			light2_opened = false;
 		}
 	  });
