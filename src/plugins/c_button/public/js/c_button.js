@@ -166,12 +166,12 @@
 		if(!fan_opened) {
 			$("#fan_ok_id").text = "关闭风扇";
 			$("#fan_ok_id").attr("class","btn btn-danger");
-			this.cockpit.socket.emit('fan_update',1);
+			this.cockpit.socket.emit('fan_update',0);
 			fan_opened = true;
 		}else{
 			$("#fan_ok_id").text = "打开风扇";
 			$("#fan_ok_id").attr("class","btn btn-primary");
-			this.cockpit.socket.emit('fan_update',0);
+			this.cockpit.socket.emit('fan_update',1);
 			fan_opened = false;
 		}
 	  });
@@ -180,12 +180,12 @@
 		if(!light2_opened) {
 			$("#light_open_id").text = "关闭灯";
 			$("#light_open_id").attr("class","btn btn-danger");
-			this.cockpit.socket.emit('light2_update',1);
+			this.cockpit.socket.emit('light2_update',0);
 			light2_opened = true;
 		}else{
 			$("#light_open_id").text = "打开灯";
 			$("#light_open_id").attr("class","btn btn-primary");
-			this.cockpit.socket.emit('light2_update',0);
+			this.cockpit.socket.emit('light2_update',1);
 			light2_opened = false;
 		}
 	  });

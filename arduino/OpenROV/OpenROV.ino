@@ -58,9 +58,9 @@ Settings settings;
 	Temp _temp;
 #endif
 
-#if(HAS_STD_SWITCH)
-	#define "Switch.h"
-	Switch _switch;
+#if(HAS_STD_SWITCHFANLIGHT)
+	#include "SwitchFanLight.h"
+	SwitchFanLight _switch_;
 #endif
 
 #if(HAS_POLOLU_MINIMUV)

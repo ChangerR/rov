@@ -41,6 +41,8 @@ then
 	#ifndef __BOARDCONFIG_H__
 	#define __BOARDCONFOG_H__
 	#define HAS_STD_CAPE (0)
+	#define HAS_STD_TEMP (1)
+	#define HAS_STD_SWITCH (1)
     #define HAS_OROV_CONTROLLERBOARD_25 (1)
 	#endif
 
