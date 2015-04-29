@@ -178,12 +178,12 @@
 	  
 	  $("#light_open_id").click(function() {
 		if(!light2_opened) {
-			$("#light_open_id#text").text() = "关闭灯";
+			$("#light_open_id").text() = "关闭灯";
 			$("#light_open_id").attr("class","btn btn-danger");
 			cockpit.socket.emit('light2_update',0);
 			light2_opened = true;
 		}else{
-			$("#light_open_id#text").text() = "打开灯";
+			$("#light_open_id").text() = "打开灯";
 			$("#light_open_id").attr("class","btn btn-primary");
 			cockpit.socket.emit('light2_update',1);
 			light2_opened = false;
