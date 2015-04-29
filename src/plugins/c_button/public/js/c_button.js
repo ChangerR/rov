@@ -32,6 +32,9 @@
 						</div> \
 					</center> \
 					<center style="margin-top:5px;"> \
+						<button class="btn btn-success" id="fan_ok_id" style="width:40%;">打开风扇</button>\
+						<button class="btn btn-success" id="light_open_id" style="width:40%;">打开灯</button></button></center> \
+					<center style="margin-top:5px;"> \
 						<button class="btn btn btn-primary" id="btn_camera_back" style="width:40%;">摄像头回复</button>\
 						<button class="btn btn-danger" id="btn_stop" style="width:40%;">停止一切</button></button></center> \
 				</div>');
@@ -155,7 +158,38 @@
 			down_down = false;
 		}
 	  });
-
+		
+		var fan_opened = false;
+		var light2_opened = false;
+		
+		$("#fan_ok_id").click(function() {
+		if(!fan_opened) {
+			$("#fan_ok_id").text = "关闭风扇";
+			$("#fan_ok_id").attr("class","btn btn-danger");
+			this.cockpit.socket.emit('fan_update',1);
+			fan_opened = true;
+		}else{
+			$("#fan_ok_id").text = "打开风扇";
+			$("#fan_ok_id").attr("class","btn btn-primary");
+			this.cockpit.socket.emit('fan_update',0);
+			fan_opened = false;
+		}
+	  });
+	  
+	  $("#light_open_id").click(function() {
+		if(!light2_opened) {
+			$("#light_open_id").text = "关闭灯";
+			$("#light_open_id").attr("class","btn btn-danger");
+			this.cockpit.socket.emit('light2_update',1);
+			light2_opened = true;
+		}else{
+			$("#light_open_id").text = "打开灯";
+			$("#light_open_id").attr("class","btn btn-primary");
+			this.cockpit.socket.emit('light2_update',0);
+			light2_opened = false;
+		}
+	  });
+	  
 	  $("#btn_stop").click(function() {
 		var e;
 		e = jQuery.Event("keydown");
@@ -187,6 +221,8 @@
 		e.keyCode = 81;
 		$(window).trigger(e);
 	  });
+	  
+	  
     };
 
 	

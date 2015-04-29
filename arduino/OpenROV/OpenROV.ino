@@ -53,7 +53,15 @@ Settings settings;
   CameraMount cameramount;
 #endif
 
+#if(HAS_STD_TEMP)
+	#include "Temp.h"
+	Temp _temp;
+#endif
 
+#if(HAS_STD_SWITCH)
+	#define "Switch.h"
+	Switch _switch;
+#endif
 
 #if(HAS_POLOLU_MINIMUV)
   #define COMPASS_ENABLED 1

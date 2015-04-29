@@ -37,6 +37,7 @@ class envdata{
   public:
     static float PRES; //Pressure in millibars
     static float TEMP; //Temperature in C
+	static float AIRTEMP;
 };
 
 class capedata{

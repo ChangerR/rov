@@ -4,7 +4,7 @@ Motors::Motors(int p_pin, int v_pin, int s_pin,int v2_pin){
   port_pin = p_pin;
   vertical_pin = v_pin;
   starbord_pin = s_pin;
-  
+  vertical2_pin = v2_pin;
 }
 
 void Motors::reset(){

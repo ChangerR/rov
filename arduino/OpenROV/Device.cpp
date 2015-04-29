@@ -101,6 +101,9 @@ void OutputSharedData(){
     _SERIAL_PORT_.print(F("temp:"));
     _SERIAL_PORT_.print(envdata::TEMP);
     _SERIAL_PORT_.println(';'); 
+	_SERIAL_PORT_.print(F("envtemp:"));
+    _SERIAL_PORT_.print(envdata::AIRTEMP);
+    _SERIAL_PORT_.println(';'); 
  
     _SERIAL_PORT_.print(F("dlms:")); //device loop time in ms
     for(int i=0;i<DeviceManager::device_count;i++){
@@ -126,6 +129,7 @@ float navdata::YAW = 0;
 
 float envdata::PRES = 0;
 float envdata::TEMP = 0;
+float envdata::AIRTEMP = 0;
 
 double capedata::FMEM = 0;
 double capedata::VOUT = 0;

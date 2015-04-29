@@ -201,6 +201,18 @@ var OpenROVController = function (eventLoop) {
     var command = 'start();';
     hardware.write(command);
   };
+  controller.sendFan = function(value) {
+	  if (this.notSafeToControl())
+      return;
+    var command = 'fan(' + value + ');';
+    hardware.write(command);  
+  }
+  controller.sendLight2 = function(value) {
+	  if (this.notSafeToControl())
+      return;
+    var command = 'light2(' + value + ');';
+    hardware.write(command);  
+  }
   globalEventLoop.on('register-ArdunoFirmwareVersion', function (val) {
     controller.ArduinoFirmwareVersion = val;
   });

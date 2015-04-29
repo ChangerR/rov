@@ -119,7 +119,15 @@ io.sockets.on('connection', function (socket) {
         socket.on('laser_update', function(value) {
         controller.sendLaser(value);
     });
-        
+	
+	socket.on('fan_update', function(value) {
+        controller.sendFan(value);
+    });
+    
+	socket.on('light2_update', function(value) {
+        controller.sendLight2(value);
+    });
+	
     socket.on('depth_zero', function(){
         controller.send('dzer()');
     });
