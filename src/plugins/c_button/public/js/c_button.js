@@ -169,7 +169,7 @@
 			cockpit.socket.emit('fan_update',0);
 			fan_opened = true;
 		}else{
-			$("#fan_ok_id:first").text() = "打开风扇";
+			$("#fan_ok_id:first").data = "打开风扇";
 			$("#fan_ok_id").attr("class","btn btn-primary");
 			cockpit.socket.emit('fan_update',1);
 			fan_opened = false;
