@@ -164,28 +164,28 @@
 		
 		$("#fan_ok_id").click(function() {
 		if(!fan_opened) {
-			$("#fan_ok_id").text = "关闭风扇";
+			$("#fan_ok_id").firstChild.data = "关闭风扇";
 			$("#fan_ok_id").attr("class","btn btn-danger");
-			this.cockpit.socket.emit('fan_update',0);
+			cockpit.socket.emit('fan_update',0);
 			fan_opened = true;
 		}else{
-			$("#fan_ok_id").text = "打开风扇";
+			$("#fan_ok_id").firstChild.data = "打开风扇";
 			$("#fan_ok_id").attr("class","btn btn-primary");
-			this.cockpit.socket.emit('fan_update',1);
+			cockpit.socket.emit('fan_update',1);
 			fan_opened = false;
 		}
 	  });
 	  
 	  $("#light_open_id").click(function() {
 		if(!light2_opened) {
-			$("#light_open_id#text").data = "关闭灯";
+			$("#light_open_id#text").firstChild.data = "关闭灯";
 			$("#light_open_id").attr("class","btn btn-danger");
-			CButton.cockpit.socket.emit('light2_update',0);
+			cockpit.socket.emit('light2_update',0);
 			light2_opened = true;
 		}else{
-			$("#light_open_id#text").data = "打开灯";
+			$("#light_open_id#text").firstChild.data = "打开灯";
 			$("#light_open_id").attr("class","btn btn-primary");
-			CButton.cockpit.socket.emit('light2_update',1);
+			cockpit.socket.emit('light2_update',1);
 			light2_opened = false;
 		}
 	  });
