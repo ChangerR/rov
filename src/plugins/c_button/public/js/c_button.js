@@ -170,7 +170,7 @@
 			fan_opened = true;
 		}else{
 			$("#fan_ok_id:first").data = "打开风扇";
-			$("#fan_ok_id").attr("class","btn btn-primary");
+			$("#fan_ok_id").attr("class","btn btn-success");
 			cockpit.socket.emit('fan_update',1);
 			fan_opened = false;
 		}
@@ -184,7 +184,7 @@
 			light2_opened = true;
 		}else{
 			$("#light_open_id:first").data = "打开灯";
-			$("#light_open_id").attr("class","btn btn-primary");
+			$("#light_open_id").attr("class","btn btn-success");
 			cockpit.socket.emit('light2_update',1);
 			light2_opened = false;
 		}
