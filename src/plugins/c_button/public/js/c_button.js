@@ -33,10 +33,10 @@
 					</center> \
 					<center style="margin-top:5px;"> \
 						<button class="btn btn-success" id="fan_ok_id" style="width:40%;">打开风扇</button>\
-						<button class="btn btn-success" id="light_open_id" style="width:40%;">打开灯</button></button></center> \
+						<button class="btn btn-success" id="light_open_id" style="width:40%;">打开灯</button></center> \
 					<center style="margin-top:5px;"> \
 						<button class="btn btn btn-primary" id="btn_camera_back" style="width:40%;">摄像头回复</button>\
-						<button class="btn btn-danger" id="btn_stop" style="width:40%;">停止一切</button></button></center> \
+						<button class="btn btn-danger" id="btn_stop" style="width:40%;">停止一切</button></center> \
 				</div>');
 
 		var forward_down = false;

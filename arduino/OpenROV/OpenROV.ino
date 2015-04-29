@@ -53,15 +53,7 @@ Settings settings;
   CameraMount cameramount;
 #endif
 
-#if(HAS_STD_TEMP)
-	#include "Temp.h"
-	Temp _temp;
-#endif
 
-#if(HAS_STD_SWITCHFANLIGHT)
-	#include "SwitchFanLight.h"
-	SwitchFanLight _switch_;
-#endif
 
 #if(HAS_POLOLU_MINIMUV)
   #define COMPASS_ENABLED 1
@@ -88,6 +80,16 @@ Settings settings;
   #include <Wire.h> //required to force the Arduino IDE to include the library in the path for the I2C code
   #include <SPI.h> //required to force the Arduino IDE to include the library in the path for the SPI code
   MS5803_14BA DeapthSensor;
+#endif
+
+#if(HAS_STD_TEMP)
+	#include "Temp.h"
+	Temp _temp;
+#endif
+
+#if(HAS_STD_SWITCHFANLIGHT)
+	#include "SwitchFanLight.h"
+	SwitchFanLight _switch_;
 #endif
 
 Command cmd;
