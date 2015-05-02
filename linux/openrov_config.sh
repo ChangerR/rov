@@ -1,8 +1,7 @@
 #!/bin/sh
 
 
-if [ ! -f /var/run/rov_board] ; 
-then
+if [ ! -f /var/run/rov_board ]; then
 	/opt/openrov/cockpit/linux/system-detect.sh
 fi
 
