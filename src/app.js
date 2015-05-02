@@ -1,7 +1,7 @@
 #! /opt/node/bin/node
 var forever = require('forever-monitor');
 
-  var child = new (forever.Monitor)('/opt/openrov/src/cockpit.js', {
+  var child = new (forever.Monitor)('/opt/openrov/cockpit/src/cockpit.js', {
     max: 3,
     silent: process.env.NODE_DEBUG === 'false',
     options: [],
