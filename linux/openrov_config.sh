@@ -1,5 +1,11 @@
 #!/bin/sh
 
+
+if [ ! -f /var/run/rov_board] ; 
+then
+	/opt/openrov/cockpit/linux/system-detect.sh
+fi
+
 export ROV_BOARD=`cat /var/run/rov_board`
 if test "$ROV_BOARD" = "board25_usbtiny"
 then

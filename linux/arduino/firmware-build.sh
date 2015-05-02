@@ -35,7 +35,7 @@ rm $1/src/Device.cpp.template
 #setup required environment variables if not already set
 . /opt/openrov/cockpit/linux/openrov_config.sh
 
-if test "$ROV_BOARD" = "board25"
+if test "$ROV_BOARD" = "board25_usbtiny"
 then
 	cat > $1/src/BoardConfig.h << __EOF__
 	#ifndef __BOARDCONFIG_H__
@@ -45,6 +45,20 @@ then
 	#define HAS_STD_SWITCH (1)
     #define HAS_OROV_CONTROLLERBOARD_25 (1)
 	#define USE_SERIAL3
+	#endif
+
+__EOF__
+fi
+
+if test "$ROV_BOARD" = "board25"
+then
+	cat > $1/src/BoardConfig.h << __EOF__
+	#ifndef __BOARDCONFIG_H__
+	#define __BOARDCONFOG_H__
+	#define HAS_STD_CAPE (0)
+	#define HAS_STD_TEMP (0)
+	#define HAS_STD_SWITCH (0)
+    #define HAS_OROV_CONTROLLERBOARD_25 (1)
 	#endif
 
 __EOF__
