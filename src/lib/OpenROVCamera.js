@@ -25,7 +25,7 @@ var OpenROVCamera = function (options) {
   var capture_process;
   var is_close = true;
   // Open mjpg_streamer app as a child process
-  var cmd = 'mjpg_streamer';  // rename to correspond with your C++ compilation
+  var cmd = '/opt/openrov/cockpit/linux/start_camera.sh';  // rename to correspond with your C++ compilation
   var default_opts = {
     device : CONFIG.video_device,
     resolution : CONFIG.video_resolution,
@@ -40,10 +40,9 @@ var OpenROVCamera = function (options) {
 	return _capturing;
   }
 
-  var args= [ '-i' ,
-              '/usr/local/lib/input_uvc.so -y -r ' + options.resolution + ' -f ' + options.framerate,
-              '-o',
-              '/usr/local/lib/output_http.so -p ' + options.port
+  var args= [  options.device,
+              options.resolution, options.framerate,
+              ,options.port,'yuv'
             ];
 
   // End camera process gracefully
@@ -71,32 +70,36 @@ var OpenROVCamera = function (options) {
     logger.log('ensure beagle is at 100% cpu for this camera');
     spawn('cpufreq-set',['-g','performance']);
 
-    // if camera working, should be at options.device (most likely /dev/video0 or similar)
-    fs.exists(options.device, function(exists) {
-      // no camera?!
-      if (!exists) return callback(new Error(options.device + ' does not exist'));
-      // wooooo!  camera!
-	  is_close = false;
-      logger.log(options.device, ' found');
-      _capturing = true; // then remember that we're capturing
-      logger.log('spawning capture process...');
+	is_close = false;
+	_capturing = true; // then remember that we're capturing
+    logger.log('spawning capture process...');
 
-      capture_process = spawn(cmd, args);
-      camera.emit('started');
-      capture_process.stdout.on('data', function (data) {
+    capture_process = spawn(cmd, args);
+    camera.emit('started');
+    capture_process.stdout.on('data', function (data) {
   	logger.log('camera: ' + data);
       });
 
-      capture_process.stderr.on('data', function (data) {
+    capture_process.stderr.on('data', function (data) {
         logger.log('camera: ' + data);
 //	camera.emit('error.device',data);
-      });
-      console.log('camera started');
+	});
+    console.log('camera started');
 
-      capture_process.on('exit', function (code) {
+    capture_process.on('exit', function (code) {
         console.log('child process exited with code ' + code);
 		_capturing = false;
 		camera.emit('error.device',code);
+		
+		var status = fs.readFileSync('/tmp/_openrov/status');
+		
+		if(status == "error") {
+			is_close = true;
+			logger.log(options.device, ' found');
+			
+			callback(new Error(options.device + ' does not exist'));
+		}
+		
 		if(!is_close) {
 			camera.capture(function(err) {
 				if (err) {
@@ -108,7 +111,7 @@ var OpenROVCamera = function (options) {
 			}			
       });
     });
-  };
+	
   return camera;
 };
 
