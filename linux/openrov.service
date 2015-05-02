@@ -57,7 +57,7 @@
 # PATH should only include /usr/* if it runs after the mountnfs.sh script
 PATH=/sbin:/usr/sbin:/bin:/usr/bin:/usr/local/bin # modify if you need
 
-DAEMON_ARGS="/opt/openrov/src/app.js"               # path to your node.js server/app
+DAEMON_ARGS="/opt/openrov/cockpit/src/app.js"               # path to your node.js server/app
                                             # NB: don't use ~/ in path
 
 DESC="OpenROV NodeJS server"                  # whatever fancy description you like
