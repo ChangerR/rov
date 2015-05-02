@@ -30,8 +30,6 @@ fi
 
 if [ ! -f $VIDEO_DEVICE ] ;
 then
-	echo $YUV
-	mkdir /tmp/_openrov
 	echo "error" > /tmp/_openrov/status
 	exit 1
 fi
