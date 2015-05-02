@@ -44,6 +44,7 @@ then
 	#define HAS_STD_TEMP (1)
 	#define HAS_STD_SWITCH (1)
     #define HAS_OROV_CONTROLLERBOARD_25 (1)
+	#define USE_SERIAL3
 	#endif
 
 __EOF__

@@ -24,11 +24,11 @@ COUNTER=0
 . /opt/openrov/linux/openrov_config.sh
 
 while [ $COUNTER -lt 9 ]; do
-        echo $COUNTER
-        if [ $UPLOAD_REQUIRES_RESET ]
-	then
-        	(sleep 0.0$COUNTER && /opt/openrov/linux/reset.sh 1>&2)
-	fi
+    echo $COUNTER
+    #if [ $UPLOAD_REQUIRES_RESET ]
+	#then
+    #    	(sleep 0.0$COUNTER && /opt/openrov/linux/reset.sh 1>&2)
+	#fi
     EXITCODE=`$UPLOAD_TO_ATMEGA_COMMAND 1>&2`
 	if [ $? -eq 0 ] 
 		then
