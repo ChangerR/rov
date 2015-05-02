@@ -8,7 +8,7 @@ fi
 export ROV_BOARD=`cat /var/run/rov_board`
 if test "$ROV_BOARD" = "board25_usbtiny"
 then
-	export UPLOAD_TO_ATMEGA_COMMAND="avrdude -P usb -c usbtiny -vvv -p m2560 -U flash:w:.build/mega2560/firmware.hex"
+	export UPLOAD_TO_ATMEGA_COMMAND="avrdude -P usb -c usbtiny -p m2560 -U flash:w:.build/mega2560/firmware.hex"
     export BUILD_ATMEGA_CODE="ino build -m mega2560"
 fi
 
