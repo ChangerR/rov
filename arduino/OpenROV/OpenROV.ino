@@ -82,16 +82,16 @@ Settings settings;
   MS5803_14BA DeapthSensor;
 #endif
 
-#if(HAS_STD_TEMP)
-	#include "Temp.h"
-	Temp _temp;
-#endif
+
 
 #if(HAS_STD_SWITCHFANLIGHT)
 	#include "SwitchFanLight.h"
 	SwitchFanLight _switch_;
 #endif
 
+#include "Temp.h"
+Temp _temp;
+	
 Command cmd;
 
 volatile byte wdt_resets = 0; //watchdog resets

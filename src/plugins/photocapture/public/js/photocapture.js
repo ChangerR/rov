@@ -27,7 +27,8 @@
         </div>');
 	
 	$("#menuitems").append('<li><a href="#" id="show-photos">照片</a></li>');
-	
+//	$("#menuitems").append('<li><a href="#" id="show-thrustset">参数</a></li>');
+	        
 	$("#buttonPanel").append('<button id="capture-photo" class="btn">&nbsp;&nbsp;截图&nbsp;&nbsp;</button>');	 	    
 	
         // Register the various event handlers

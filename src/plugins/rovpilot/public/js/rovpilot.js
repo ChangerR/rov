@@ -8,12 +8,13 @@
 
         // Instance variables
         this.cockpit = cockpit;
-        this.power = .1; //default to mid power
+        this.power = tconf.power2; //default to mid power
+	    this.power_air = tconf.powerair2;
         this.vtrim = 0; //default to no trim
         this.ttrim = 0;
         this.tilt = 0;
         this.light = 0;
-	this.sendToROVEnabled = true;
+	    this.sendToROVEnabled = true;
         this.positions = {
             throttle: 0,
             yaw: 0,
@@ -75,9 +76,9 @@
 	GAMEPAD.RIGHT_STICK_Y	= {AXIS_CHANGED: function(v){cockpitEventEmitter.emit('rovpilot.setLift',-1*v)} };
 
         KEYS[32] = {keydown: function(){ cockpitEventEmitter.emit('rovpilot.allStop')}};// space (all-stop)
-        KEYS[38] = {keydown: function(){ cockpitEventEmitter.emit('rovpilot.setThrottle',-1)},
+        KEYS[38] = {keydown: function(){ cockpitEventEmitter.emit('rovpilot.setThrottle',1)},
                     keyup:   function(){ cockpitEventEmitter.emit('rovpilot.setThrottle',0)}}; // up  (forward)
-        KEYS[40] = {keydown: function(){ cockpitEventEmitter.emit('rovpilot.setThrottle',1)},
+        KEYS[40] = {keydown: function(){ cockpitEventEmitter.emit('rovpilot.setThrottle',-1)},
                     keyup:   function(){ cockpitEventEmitter.emit('rovpilot.setThrottle',0)}};  // down (aft)
         KEYS[37] = {keydown: function(){ cockpitEventEmitter.emit('rovpilot.setYaw',-1)},
                     keyup:   function(){ cockpitEventEmitter.emit('rovpilot.setYaw',0)}};// left (turn left)
@@ -272,24 +273,30 @@
     }
 
     ROVpilot.prototype.powerLevel = function powerLevel(value){
-        switch(value){
+	switch(value){
             case 1:
-                this.power = .05
+                this.power = tconf.power1;
+		        this.power_air = tconf.powerair1;
             break;
             case 2:
-                this.power = .1
+                this.power = tconf.power2;
+	        	this.power_air = tconf.powerair2;
             break;
             case 3:
-                this.power = .2
+                this.power = tconf.power3;
+		        this.power_air = tconf.powerair3;
             break;
             case 4:
-                this.power = .5
+                this.power = tconf.power4;
+		        this.power_air = tconf.powerair4;
             break;
             case 5:
-                this.power = 1
+                this.power = tconf.power5;
+		        this.power_air = tconf.powerair5;
             break;
         }
-	$("#thrustfactor").text(value);
+
+	    $("#thrustfactor").text(value);
     };
 
     ROVpilot.prototype.allStop = function allStop(){
@@ -304,10 +311,18 @@
         var positions = this.positions;
 	var updateRequired = false;  //Only send if there is a change
         var controls = {};
-
- 	controls.throttle = positions.throttle * this.power;
-	controls.yaw = positions.yaw * this.power;
+	controls.throttle = positions.throttle * this.power_air;
+	controls.yaw = positions.yaw * this.power_air;
 	controls.lift = positions.lift * this.power;
+	
+	if(controls.throttle != 0) {
+	
+        if(controls.yaw > 0)
+            controls.yaw = tconf.yaws;
+        else if(controls.yaw  < 0) 
+            controls.yaw = -tconf.yaws;
+            
+    }
         for(var i in positions) {
 
 	    if (controls[i] != this.priorControls[i])

@@ -52,6 +52,7 @@
 	<script src='js/libs/db.js'></script>
 	<script type='text/javascript' src="js/libs/IndexedDBShim.min.js"></script>
         <script src="/config.js"></script>
+        <script type='text/javascript' src="/tconfig.js"></script>
 	<script src="/socket.io/socket.io.js"></script>
 
 
@@ -70,8 +71,10 @@
           <li><a href="#" id="servoTilt"></a></li>
         </ul>
         <ul id="menuitems" class="nav pull-right">
+            <li><a href="#" id="show-thrustset">参数</a>
           <li><a href="#" id="show-settings">设置</a></li>
           <li><a href="#" id="show-diagnostic">诊断</a></li>
+          
         </ul>        
       </div>
     </div>
@@ -129,7 +132,30 @@
 		    <p>使用 <i>l</i> 开关位置标定.</p>
         </div>
 
-        
+
+        <div class="drop-in-right" id="thrustsettings">
+          <div class="back-button"></div>
+		  <h3>电机</h3>
+		  <h4>参数设置</h4>
+		  <h4>写入</h4>
+		  <div>
+			<div><span>POWER1</span><input type="text" id="_power1"></input></div>
+			<div><span>POWER2</span><input type="text" id="_power2"></input></div>
+			<div><span>POWER3</span><input type="text" id="_power3"></input></div>
+			<div><span>POWER4</span><input type="text" id="_power4"></input></div>
+			<div><span>POWER5</span><input type="text" id="_power5"></input></div>
+			<div><span>POWERAIR1</span><input type="text" id="_powerair1"></input></div>
+			<div><span>POWERAIR2</span><input type="text" id="_powerair2"></input></div>
+			<div><span>POWERAIR3</span><input type="text" id="_powerair3"></input></div>
+			<div><span>POWERAIR4</span><input type="text" id="_powerair4"></input></div>
+			<div><span>POWERAIR5</span><input type="text" id="_powerair5"></input></div>
+			<div><span>ROWS</span><input type="text" id="_rows"></input></div>
+			<div> <button class="btn btn-default" id="_read">读取</button>
+            <button class="btn btn-primary" id="_add_submit">提交</button> 
+			</div>
+		</div>
+	   </div>
+
         <!-- Le javascript
         ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
@@ -189,6 +215,24 @@
               Mousetrap.unbind('esc');
 	      keyboardHandler.bindKeys()
             }
+            
+            $("#show-thrustset").click(function() { 
+              $("#thrustsettings").show('fold');
+				cockpit.sendUpdateEnabled=false;
+              Mousetrap.bind('esc', hidethrustset);
+			keyboardHandler.unbindKeys();
+            });
+
+            $("#thrustsettings .back-button").click(function() {
+              hidethrustset();
+            });
+	    
+			function hidethrustset() {
+				$("#thrustsettings").hide('fold');
+              cockpit.sendUpdateEnabled = true;
+              Mousetrap.unbind('esc');
+	      keyboardHandler.bindKeys()
+			}
 	    
               /* ------------------------------------------
                diagnostic
@@ -213,8 +257,79 @@
                   Mousetrap.unbind('esc');
 		  keyboardHandler.bindKeys();
               }
-
- 	      
+    
+      $("#_add_submit").on('click',function() {
+		  if( !isNaN( $("#_power1")[0].value)) {
+			var num =  $("#_power1")[0].value;
+			if(num < 0)num = 0;
+			if(num > 1)num = 1;
+			  tconf.power1 =  num;
+			}
+			 if( !isNaN( $("#_power2")[0].value)) {
+			var num =  $("#_power2")[0].value;
+			if(num < 0)num = 0;
+			if(num > 1)num = 1;
+			  tconf.power2 =  num;
+			}
+			 if( !isNaN( $("#_power3")[0].value)) {
+			var num =  $("#_power3")[0].value;
+			if(num < 0)num = 0;
+			if(num > 1)num = 1;
+			  tconf.power3 =  num;
+			}
+			 if( !isNaN( $("#_power4")[0].value)) {
+			var num =  $("#_power4")[0].value;
+			if(num < 0)num = 0;
+			if(num > 1)num = 1;
+			  tconf.power4 =  num;
+			}
+			 if( !isNaN( $("#_power5")[0].value)) {
+			var num =  $("#_power5")[0].value;
+			if(num < 0)num = 0;
+			if(num > 1)num = 1;
+			  tconf.power5 =  num;
+			}
+			 if( !isNaN( $("#_powerair1")[0].value)) {
+			var num =  $("#_powerair1")[0].value;
+			if(num < 0)num = 0;
+			if(num > 1)num = 1;
+			  tconf.powerair1 =  num;
+			}
+			 if( !isNaN( $("#_powerair2")[0].value)) {
+			var num =  $("#_powerair2")[0].value;
+			if(num < 0)num = 0;
+			if(num > 1)num = 1;
+			  tconf.powerair2 =  num;
+			}
+			 if( !isNaN( $("#_powerair3")[0].value)) {
+			var num =  $("#_powerair3")[0].value;
+			if(num < 0)num = 0;
+			if(num > 1)num = 1;
+			  tconf.powerair3 =  num;
+			}
+			 if( !isNaN( $("#_powerair4")[0].value)) {
+			var num =  $("#_powerair4")[0].value;
+			if(num < 0)num = 0;
+			if(num > 1)num = 1;
+			  tconf.powerair4 =  num;
+			}
+			 if( !isNaN( $("#_powerair5")[0].value)) {
+			var num =  $("#_powerair5")[0].value;
+			if(num < 0)num = 0;
+			if(num > 1)num = 1;
+			  tconf.powerair5 =  num;
+			}
+			 
+			 if( !isNaN( $("#_rows")[0].value)) {
+			var num =  $("#_rows")[0].value;
+			if(num < 0)num = 0;
+			if(num > 1)num = 1;
+			  tconf.yaws =  num;
+			}
+			socket.emit('update_tconf',tconf);
+		    //$(window).Cockpit.plugins;
+		  });
+		  
 	  $('#zero_depth').click(function() {
             socket.emit('depth_zero');
           });
@@ -229,8 +344,8 @@
 	  
 
 	   
-          });	  
-          
+          });
+         
         //We have a contract for centralizing all keyboad instructions. This code
         //wires that content to where we display it in a popover.
         $('#keyboardpopover').hover(function(){
@@ -265,6 +380,22 @@
             ctx.drawImage(srcImg,0,(canvas.height-proportionalHeight)/2,width, proportionalHeight);
         },64); //only need to redraw at the framerate of source video
 		
+		
+		 $("#_read").on("click",function() {
+			  $("#_power1")[0].value = tconf.power1;
+			  $("#_power2")[0].value = tconf.power2;
+			  $("#_power3")[0].value = tconf.power3;
+			  $("#_power4")[0].value = tconf.power4;
+			  $("#_power5")[0].value = tconf.power5;
+			  $("#_powerair1")[0].value = tconf.powerair1;
+			  $("#_powerair2")[0].value = tconf.powerair2;
+			  $("#_powerair3")[0].value = tconf.powerair3;
+			  $("#_powerair4")[0].value = tconf.powerair4;
+			  $("#_powerair5")[0].value = tconf.powerair5;
+			  $("#_rows")[0].value = tconf.yaws;
+		  });
+		  
+		 
         </script>
 
     </body>

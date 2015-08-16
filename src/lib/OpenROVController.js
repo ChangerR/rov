@@ -160,7 +160,7 @@ var OpenROVController = function (eventLoop) {
   controller.sendCommand = function (throttle, yaw, vertical) {
     if (this.notSafeToControl())
       return;
-    var motorCommands = physics.mapMotors(throttle, yaw, vertical);
+    var motorCommands = physics.mapMotorsWithAir(throttle, yaw, vertical);
     var command = 'go(' + motorCommands.port + ',' + motorCommands.vertical + ',' + motorCommands.starbord + ');';
     hardware.write(command);
   };

@@ -1,0 +1,21 @@
+
+*** These modified files were found in JOE when it aborted on Sat May  2 21:31:27 2015
+*** JOE was aborted because the terminal closed
+
+*** File '/opt/openrov/cockpit/.git/COMMIT_EDITMSG'
+add:
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch master
+# Your branch is behind 'origin/master' by 1 commit, and can be fast-forwarded.
+#   (use "git pull" to update your local branch)
+#
+# Changes to be committed:
+#	modified:   arduino/Test Code/Walts_Depth_Sensor_Rev1.ino
+#	modified:   linux/openrov.service
+#	modified:   src/app.js
+#
+
+*** File '(Unnamed)'
+/opt/openrov/cockpit/.git/COMMIT_EDITMSG
+/opt/openrov/cockpit/.git/COMMIT_EDITMSG

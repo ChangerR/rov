@@ -25,9 +25,56 @@ var ArduinoPhysics = function () {
     result = Math.round(result);
     return result;
   };
+ physics.mapVMotor = function (val) {
+    val = limit(val, -1, 1);
+    var result;
+    if (val < 0)
+      result = mapA(val, -1, 0, 1000, 1500);
+    if (val > 0)
+      result = mapA(val, 0, 1, 1500, 2000);
+    if (val == 0)
+      result = 1500;
+    result = Math.round(result);
+    return result;
+  };  
+  physics.mapAirMotor = function (val) {
+    val = limit(val, -1, 1);
+    var result;
+    if (val < 0)
+      val = 0;
+  
+	if(val > 0)
+      result = mapA(val, 0, 1, 1100, 2000);
+	  
+    if (val == 0)
+      result = 1100;
+  
+    result = Math.round(result);
+    return result;
+  };
+  
   physics.unmapMotor = function (val) {
     val = mapA(val, 1000, 2000, -1, 1);
   };
+  
+   physics.mapMotorsWithAir = function (throttle, yaw, vertical) {
+    var port = 0, starbord = 0;
+    port = starbord = throttle;	
+    if(starbord > 0)
+	starbord += 0.001;
+
+	if(throttle == 0)
+		yaw = -yaw;
+		
+    port += yaw;
+    starbord -= yaw;
+    return {
+      port: physics.mapAirMotor(port),
+      starbord: physics.mapAirMotor(starbord),
+      vertical: physics.mapVMotor(vertical)
+    };
+  };
+  
   physics.mapMotors = function (throttle, yaw, vertical) {
     var port = 0, starbord = 0;
     port = starbord = throttle;
@@ -63,3 +110,4 @@ function limit(value, l, h) {
   return Math.max(l, Math.min(h, value));
 }
 module.exports = ArduinoPhysics;
+

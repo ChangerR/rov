@@ -12,7 +12,6 @@ void Motors::reset(){
   vertical.attach(vertical_pin);
   starbord.attach(starbord_pin);
   vertical2.attach(vertical2_pin);
-  delay(1500);
 }
 
 void Motors::go(int p, int v, int s){
@@ -36,20 +35,12 @@ void Motors::goport(int p){
 }
 
 void Motors::govertical(int v){
-	int delta = v-MIDPOINT;
-  if(delta < 0) {
-	int positive_s = MIDPOINT - delta;
-	int negative_s = MIDPOINT + (delta * 5 / 3);
-
-	vertical.writeMicroseconds(constrain(positive_s,1000,2000));
-	vertical2.writeMicroseconds(constrain(negative_s,1000,2000));
-  }else {
-	  int positive_s = MIDPOINT - (delta * 5 / 3);
-	  int negative_s = MIDPOINT + delta ;
-	  
-	  vertical.writeMicroseconds(constrain(positive_s,1000,2000));
-	  vertical2.writeMicroseconds(constrain(negative_s,1000,2000));
-  }
+  int modifier = 1;
+  if (v>MIDPOINT) modifier = motor_positive_modifer[vertical_motor];
+  if (v<MIDPOINT) modifier = motor_negative_modifer[vertical_motor];
+  int delta = v-MIDPOINT;
+  vertical.writeMicroseconds(constrain(MIDPOINT+delta*modifier,1000,2000));
+  vertical2.writeMicroseconds(constrain(MIDPOINT+delta*modifier,1000,2000));
 }
 
 void Motors::gostarbord(int s){

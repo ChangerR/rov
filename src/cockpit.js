@@ -21,7 +21,8 @@ var CONFIG = require('./lib/config')
   , OpenROVArduinoFirmwareController = require('./lib/OpenROVArduinoFirmwareController')
   , logger = require('./lib/logger').create(CONFIG)
   , mkdirp = require('mkdirp')
-  , path = require('path');
+  , path = require('path')
+  , tconfig = require('./lib/tconfig');
   
 
 
@@ -54,7 +55,7 @@ var camera = new OpenROVCamera({delay : DELAY});
 var controller = new OpenROVController(globalEventLoop);
 var arduinoUploadController = new OpenROVArduinoFirmwareController(globalEventLoop);
 controller.camera = camera;
-
+var tconf = new tconfig;
 app.get('/config.js', function(req, res) {
   res.type('application/javascript');
   res.send('var CONFIG = ' + JSON.stringify(CONFIG));
@@ -65,6 +66,11 @@ app.get('/', function (req, res) {
 		scripts: scripts
         ,styles: styles
     });
+});
+
+app.get('/tconfig.js', function(req, res) {
+  res.type('application/javascript');
+  res.send('var tconf = '+JSON.stringify(tconf.getjson()));
 });
 
 // no debug messages
@@ -106,6 +112,7 @@ io.sockets.on('connection', function (socket) {
     });
     socket.on('control_update', function(controls) {
         controller.sendCommand(controls.throttle, controls.yaw, controls.lift);
+console.log("----thr:" + controls.throttle + "--yaw:" + controls.yaw + "--lift:" + controls.lift);
     });
 
     socket.on('tilt_update', function(value) {
@@ -132,6 +139,11 @@ io.sockets.on('connection', function (socket) {
         controller.send('dzer()');
     });
 
+    socket.on('update_tconf', function(data){
+		tconf.change(data);
+		tconf.update();
+	});
+	
     socket.on('compass_callibrate', function(){
         controller.send('ccal()');
     });

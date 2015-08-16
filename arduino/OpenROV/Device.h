@@ -1,7 +1,7 @@
 
 #ifndef __Device_H_
 #define __Device_H_
-
+#include "AConfig.h"
 #include "Command.h"
 
 // If you have devices that add capabilities that should be advertised to the OpenROV Cockpit
@@ -96,6 +96,7 @@ class DeviceManager
 
 void OutputSharedData();
 void OutputNavData();
+
 
 #ifdef LOGGING
 

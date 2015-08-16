@@ -6,17 +6,17 @@
 #include "Settings.h"
 #include "Motors.h"
 #include "Timer.h"
-
+#include "controllerboard25.h"
 //Motors motors(9, 10, 11);
 //Motors motors(6, 7, 8);
 Motors motors(PORT_PIN,VERTICLE_PIN,STARBORD_PIN,VERTICLE2_PIN);
 
-int new_p = MIDPOINT;
-int new_s = MIDPOINT;
+int new_p = MIDPOINT_AIR;
+int new_s = MIDPOINT_AIR;
 int new_v = MIDPOINT;
-int p = MIDPOINT;
+int p = MIDPOINT_AIR;
 int v = MIDPOINT;
-int s = MIDPOINT;
+int s = MIDPOINT_AIR;
 
 float trg_throttle,trg_yaw,trg_lift;
 int trg_motor_power;
@@ -188,6 +188,7 @@ void Thrusters::device_loop(Command command){
   #endif
     else if (command.cmp("start")) {
       motors.reset();
+	motors.go(1100,1500,1100);
     }
     else if (command.cmp("stop")) {
       motors.stop();
@@ -219,7 +220,7 @@ void Thrusters::device_loop(Command command){
 
   }
 
-  navdata::FTHR = map((new_p + new_s) / 2, 1000,2000,-100,100);
+  navdata::FTHR = map((new_p + new_s) / 2, 1100,2000,0,100);
 
   //The output from the motors is unique to the thruster configuration
   if (thrusterOutput.elapsed(1000)){

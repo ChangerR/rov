@@ -4,6 +4,7 @@
 #include "openrov_servo.h"
 #include <Arduino.h>
 #define MIDPOINT 1500
+#define MIDPOINT_AIR 1100
 #define port_motor 0
 #define vertical_motor 1
 #define starbord_motor 2
@@ -19,6 +20,8 @@ class Motors {
     void goport(int p);
     void govertical(int v);
     void gostarbord(int s);
+    void goportAir(int p);
+    void gostarbordAir(int s);
     void reset();
     void go(int p, int v, int s);
     void stop();

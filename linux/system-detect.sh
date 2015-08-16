@@ -13,14 +13,14 @@ canTalkToATMEGAviaSPI(){
     
 }
 
-export ROV_BOARD=board25_usbtiny
+#export ROV_BOARD=board25
 
-#if canTalkToATMEGAviaSPI
-#then
-#    export ROV_BOARD=board25
-#else
-#    export ROV_BOARD=cape
-#fi
+if canTalkToATMEGAviaSPI
+then
+    export ROV_BOARD=board25
+else
+    export ROV_BOARD=cape
+fi
 
 echo "$ROV_BOARD" > /var/run/rov_board
 

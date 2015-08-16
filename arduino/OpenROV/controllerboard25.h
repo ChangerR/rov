@@ -12,7 +12,7 @@
 #define STARBORD_PIN 8
 #define VERTICLE2_PIN 9
 #define ESCPOWER_PIN 16
-#define FAN_PIN 30
+#define FAN_PIN 37
 #define LIGHT2_PIN 31
 class Controller25 : public Device {
   private:

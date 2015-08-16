@@ -41,7 +41,7 @@ var OpenROVCamera = function (options) {
   }
 
   var args= [ '-i' ,
-              '/usr/local/lib/input_uvc.so -y -r ' + options.resolution + ' -f ' + options.framerate,
+              '/usr/local/lib/input_uvc.so -n -r ' + options.resolution + ' -f ' + options.framerate,
               '-o',
               '/usr/local/lib/output_http.so -p ' + options.port
             ];
@@ -74,7 +74,7 @@ var OpenROVCamera = function (options) {
     // if camera working, should be at options.device (most likely /dev/video0 or similar)
     fs.exists(options.device, function(exists) {
       // no camera?!
-      if (!exists) return callback(new Error(options.device + ' does not exist'));
+    if (!exists) return callback(new Error(options.device + ' does not exist'));
       // wooooo!  camera!
 	  is_close = false;
       logger.log(options.device, ' found');
@@ -100,14 +100,14 @@ var OpenROVCamera = function (options) {
 		if(!is_close) {
 			camera.capture(function(err) {
 				if (err) {
-				  connections -= 1;
+				  //connections -= 1;
 				  camera.close();
 				  return console.error('couldn\'t initialize camera. got:', err);
 				 }
 				});
 			}			
       });
-    });
+});
   };
   return camera;
 };
